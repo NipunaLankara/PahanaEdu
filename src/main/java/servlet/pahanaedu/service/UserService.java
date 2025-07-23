@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserService {
 
@@ -71,4 +73,50 @@ public class UserService {
         }
         return false;
     }
+    // Fetch all users
+    public List<User> getAllUsers() throws SQLException {
+        List<User> users = new ArrayList<>();
+        Connection connection = DBConnection.getConnection();
+        String sql = "SELECT * FROM user";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            User user = new User();
+            user.setId(rs.getInt("id"));  // Assuming `id` is the PK
+            user.setName(rs.getString("name"));
+            user.setAddress(rs.getString("address"));
+            user.setEmail(rs.getString("email"));
+            user.setNic(rs.getString("nic"));
+            user.setContactNumber(rs.getString("contact_number"));
+            user.setRole(rs.getString("role"));
+            users.add(user);
+        }
+        return users;
+    }
+
+    // Delete user by ID
+    public void deleteUserById(int id) throws SQLException {
+        Connection conn = DBConnection.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM user WHERE id = ?");
+        stmt.setInt(1, id);
+        stmt.executeUpdate();
+    }
+
+    // Update user
+    public void updateUser(User user) throws SQLException {
+        Connection conn = DBConnection.getConnection();
+        PreparedStatement stmt = conn.prepareStatement(
+                "UPDATE user SET name=?, address=?, email=?, nic=?, contact_number=?, role=? WHERE id=?"
+        );
+        stmt.setString(1, user.getName());
+        stmt.setString(2, user.getAddress());
+        stmt.setString(3, user.getEmail());
+        stmt.setString(4, user.getNic());
+        stmt.setString(5, user.getContactNumber());
+        stmt.setString(6, user.getRole());
+        stmt.setInt(7, user.getId());
+        stmt.executeUpdate();
+    }
+
 }
