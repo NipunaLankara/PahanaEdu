@@ -6,20 +6,20 @@ public class User {
     private String address;
     private String email;
     private String nic;
-    private String phoneNumber;
+    private String contactNumber;
     private String password;
     private String role;
 
     public User() {
     }
 
-    public User(int id, String name, String address, String email, String nic, String phoneNumber, String password, String role) {
+    public User(int id, String name, String address, String email, String nic, String contactNumber, String password, String role) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.email = email;
         this.nic = nic;
-        this.phoneNumber = phoneNumber;
+        this.contactNumber = contactNumber;
         this.password = password;
         this.role = role;
     }
@@ -64,12 +64,12 @@ public class User {
         this.nic = nic;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getContactNumber() {
+        return contactNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setContactNumber(String phoneNumber) {
+        this.contactNumber = phoneNumber;
     }
 
     public String getPassword() {

@@ -6,6 +6,7 @@ import servlet.pahanaedu.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -13,7 +14,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 @WebServlet("/register")
-public class RegisterServlet {
+public class RegisterServlet extends HttpServlet {
 
    private UserService userService = new UserService();
 
@@ -22,7 +23,7 @@ public class RegisterServlet {
         String address = request.getParameter("address");
         String email = request.getParameter("email");
         String nic = request.getParameter("nic");
-        String phone = request.getParameter("phoneNumber");
+        String contact = request.getParameter("phoneNumber");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
 //        String profilePic = request.getParameter("profilePic");
@@ -39,7 +40,7 @@ public class RegisterServlet {
                 address.isEmpty() ||
                 email.isEmpty() ||
                 nic.isEmpty() ||
-                phone.isEmpty() ||
+                contact.isEmpty() ||
                 password.isEmpty() ||
                 confirmPassword.isEmpty()) {
 
@@ -52,7 +53,7 @@ public class RegisterServlet {
             try {
                 if (userService.checkEmail(email)) {
                     errorMessage = "Email is already registered.";
-                } else if (userService.checkPhoneNumber(phone)) {
+                } else if (userService.checkPhoneNumber(contact)) {
                     errorMessage = "Phone number is already registered.";
                 } else {
 
@@ -66,7 +67,7 @@ public class RegisterServlet {
                     user.setAddress(address);
                     user.setEmail(email);
                     user.setNic(nic);
-                    user.setPhoneNumber(phone);
+                    user.setContactNumber(contact);
                     user.setPassword(hashPassword);
                     user.setRole(role);
 //                    user.setProfilePic(profilePic);

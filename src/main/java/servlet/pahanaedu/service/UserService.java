@@ -14,12 +14,12 @@ public class UserService {
 
         Connection connection = DBConnection.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(
-                "INSERT INTO user (name, address, email, nic, phone_number, password,role) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
+                "INSERT INTO user (name, address, email, nic, contact_number, password,role) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getAddress());
             preparedStatement.setString(3, user.getEmail());
             preparedStatement.setString(4, user.getNic());
-            preparedStatement.setString(5, user.getPhoneNumber());
+            preparedStatement.setString(5, user.getContactNumber());
             preparedStatement.setString(6, user.getPassword());
             preparedStatement.setString(7, user.getRole());
 
