@@ -129,6 +129,28 @@ public class UserService {
         stmt.executeUpdate();
     }
 
+    public User getUserById(int id) throws SQLException {
+        Connection conn = DBConnection.getConnection();
+        String sql = "SELECT * FROM user WHERE id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, id);
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            User user = new User();
+            user.setId(rs.getInt("id"));
+            user.setName(rs.getString("name"));
+            user.setAddress(rs.getString("address"));
+            user.setEmail(rs.getString("email"));
+            user.setNic(rs.getString("nic"));
+            user.setContactNumber(rs.getString("contact_number"));
+            user.setRole(rs.getString("role"));
+            return user;
+        }
+        return null;
+    }
+
+
     // Update user
     public void updateUser(User user) throws SQLException {
         Connection conn = DBConnection.getConnection();
