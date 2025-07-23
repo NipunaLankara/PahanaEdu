@@ -13,7 +13,17 @@
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
+
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/javax.servlet/servlet-api -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>4.0.1</version> <!-- Use a compatible version -->
+      <scope>provided</scope>
+    </dependency>
+
   </dependencies>
   <build>
     <finalName>PahanaEdu</finalName>
