@@ -51,8 +51,8 @@ public class LoginServlet extends HttpServlet {
                         session.setAttribute("loggedInUser", loggedInUser); // Store full user object
 
                         if ("ADMIN".equalsIgnoreCase(loginUserRole)) {
-                            response.sendRedirect("admin/adminPage.jsp");
-                        } else if ("USER".equalsIgnoreCase(loginUserRole)) {
+                            response.sendRedirect("admin/customers.jsp");
+                        } else if ("CUSTOMER".equalsIgnoreCase(loginUserRole)) {
                             response.sendRedirect("index.jsp");
                         } else {
                             errorMessage = "Invalid role. Please contact the administrator.";

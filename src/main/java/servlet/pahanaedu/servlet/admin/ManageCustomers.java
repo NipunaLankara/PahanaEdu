@@ -12,16 +12,16 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("admin/customers")
+@WebServlet("/admin/customers")
 public class ManageCustomers extends HttpServlet {
 
     private UserService userService = new UserService();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            List<User> users = userService.getAllUsers();
-            request.setAttribute("users", users);
-            request.getRequestDispatcher("/admin/customers.jsp").forward(request, response);
+            List<User> users = userService.getAllCustomers();
+            request.setAttribute("customerList", users);
+            request.getRequestDispatcher("customers.jsp").forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();
         }

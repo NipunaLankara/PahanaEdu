@@ -73,17 +73,41 @@ public class UserService {
         }
         return false;
     }
-    // Fetch all users
-    public List<User> getAllUsers() throws SQLException {
-        List<User> users = new ArrayList<>();
+//    // Fetch all users
+//    public List<User> getAllUsers() throws SQLException {
+//        List<User> users = new ArrayList<>();
+//        Connection connection = DBConnection.getConnection();
+//        String sql = "SELECT * FROM user";
+//        PreparedStatement stmt = connection.prepareStatement(sql);
+//        ResultSet rs = stmt.executeQuery();
+//
+//        while (rs.next()) {
+//            User user = new User();
+//            user.setId(rs.getInt("id"));  // Assuming `id` is the PK
+//            user.setName(rs.getString("name"));
+//            user.setAddress(rs.getString("address"));
+//            user.setEmail(rs.getString("email"));
+//            user.setNic(rs.getString("nic"));
+//            user.setContactNumber(rs.getString("contact_number"));
+//            user.setRole(rs.getString("role"));
+//            users.add(user);
+//        }
+//        return users;
+//    }
+
+    // Fetch only users with role = "CUSTOMER"
+    public List<User> getAllCustomers() throws SQLException {
         Connection connection = DBConnection.getConnection();
-        String sql = "SELECT * FROM user";
+
+        List<User> users = new ArrayList<>();
+        String sql = "SELECT * FROM user WHERE role = ?";
         PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setString(1, "CUSTOMER");
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
             User user = new User();
-            user.setId(rs.getInt("id"));  // Assuming `id` is the PK
+            user.setId(rs.getInt("id"));
             user.setName(rs.getString("name"));
             user.setAddress(rs.getString("address"));
             user.setEmail(rs.getString("email"));
@@ -92,8 +116,10 @@ public class UserService {
             user.setRole(rs.getString("role"));
             users.add(user);
         }
+
         return users;
     }
+
 
     // Delete user by ID
     public void deleteUserById(int id) throws SQLException {
