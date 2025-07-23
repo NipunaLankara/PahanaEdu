@@ -28,7 +28,7 @@ public class RegisterServlet extends HttpServlet {
         String confirmPassword = request.getParameter("confirmPassword");
 //        String profilePic = request.getParameter("profilePic");
 
-        String role = "ADMIN";
+        String role = "CUSTOMER";
 
 
 //        System.out.println("Name: " + name);
