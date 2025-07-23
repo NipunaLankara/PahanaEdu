@@ -56,7 +56,7 @@
         <td><%= user.getAddress() %></td>
         <td><%= user.getRole() %></td>
         <td>
-            <a href="editCustomer.jsp?id=<%= user.getId() %>" class="edit-btn">Edit</a> |
+            <a href="editCustomer?id=<%= user.getId() %>" class="edit-btn">Edit</a>|
             <a href="deleteUser?id=<%= user.getId() %>" class="delete-btn">Delete</a>
         </td>
     </tr>
