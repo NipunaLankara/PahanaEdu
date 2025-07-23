@@ -21,6 +21,6 @@ public class DeleteUsers extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        response.sendRedirect("admin/customers");
+        response.sendRedirect("customers");
     }
 }

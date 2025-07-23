@@ -10,9 +10,24 @@
         <div class="logo">📚 Pahana Edu</div>
         <ul class="nav-links" id="nav-links">
             <li><a href="index.jsp">Home</a></li>
-            <li><a href="login.jsp">Login</a></li>
             <li><a href="register.jsp">Register</a></li>
-            <li><a href="help.jsp">Help</a></li>
+
+
+            <%
+                HttpSession userSession = request.getSession(false);
+                String userEmail = (userSession != null) ? (String) userSession.getAttribute("email") : null;
+
+                if (userEmail != null) {
+            %>
+            <a href="logout.jsp">
+                <button class="logout">Logout</button>
+            </a>
+            <% } else { %>
+            <a href="login.jsp">
+                <button class="login">Login</button>
+            </a>
+            <% } %>
+
         </ul>
         <div class="menu-icon" onclick="toggleMenu()">☰</div>
     </nav>
