@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/admin/customers")
-public class ManageCustomers extends HttpServlet {
+public class ViewCustomers extends HttpServlet {
 
     private UserService userService = new UserService();
 
