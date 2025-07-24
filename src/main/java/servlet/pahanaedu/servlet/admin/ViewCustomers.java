@@ -8,16 +8,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/admin/customers")
-public class ManageCustomers extends HttpServlet {
+public class ViewCustomers extends HttpServlet {
 
     private UserService userService = new UserService();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+        if (loggedInUser == null || !"ADMIN".equalsIgnoreCase(loggedInUser.getRole())) {
+            response.sendRedirect("../login.jsp");
+            return;
+        }
+
         try {
             List<User> users = userService.getAllCustomers();
             request.setAttribute("customerList", users);
