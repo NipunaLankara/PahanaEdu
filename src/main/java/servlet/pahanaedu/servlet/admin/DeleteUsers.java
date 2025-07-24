@@ -14,6 +14,8 @@ import java.sql.SQLException;
 public class DeleteUsers extends HttpServlet {
     private UserService userService = new UserService();
 
+
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int userId = Integer.parseInt(request.getParameter("id"));
         try {

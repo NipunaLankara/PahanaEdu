@@ -167,4 +167,19 @@ public class UserService {
         stmt.executeUpdate();
     }
 
+//    public void updateCustomerProfile(User user) throws SQLException {
+//        Connection conn = DBConnection.getConnection();
+//        PreparedStatement stmt = conn.prepareStatement(
+//                "UPDATE user SET name=?, address=?, email=?, nic=?, contact_number=? WHERE id=?"
+//        );
+//        stmt.setString(1, user.getName());
+//        stmt.setString(2, user.getAddress());
+//        stmt.setString(3, user.getEmail());
+//        stmt.setString(4, user.getNic());
+//        stmt.setString(5, user.getContactNumber());
+//        stmt.setInt(6, user.getId());
+//        stmt.executeUpdate();
+//    }
+
+
 }
