@@ -5,12 +5,20 @@
     response.sendRedirect("../login.jsp");
     return;
   }
-  request.setAttribute("customer", customer);
 %>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Profile</title>
+  <link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
 
 <h2>Edit Profile</h2>
 
-<form action="updateProfile" method="post">
+<form action="updateProfile" method="post" onsubmit="return showMessage()">
   <input type="hidden" name="id" value="<%= customer.getId() %>" />
 
   Name: <input type="text" name="name" value="<%= customer.getName() %>" required /><br><br>
@@ -22,3 +30,6 @@
   <button type="submit">Update</button>
 </form>
 
+<script src="js/profile.js"></script>
+</body>
+</html>
