@@ -1,6 +1,7 @@
 package servlet.pahanaedu.servlet.admin;
 
 import servlet.pahanaedu.model.Category;
+import servlet.pahanaedu.model.User;
 import servlet.pahanaedu.service.CategoryService;
 
 import javax.servlet.ServletException;
@@ -13,11 +14,19 @@ import java.sql.SQLException;
 public class ManageCategory extends HttpServlet {
     private final CategoryService categoryService = new CategoryService();
 
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String action = request.getParameter("action");
+
         HttpSession session = request.getSession();
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+        if (loggedInUser == null || !"ADMIN".equalsIgnoreCase(loggedInUser.getRole())) {
+            response.sendRedirect("../login.jsp");
+            return;
+        }
 
         try {
             if ("add".equals(action)) {
@@ -52,6 +61,14 @@ public class ManageCategory extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+        if (loggedInUser == null || !"ADMIN".equalsIgnoreCase(loggedInUser.getRole())) {
+            response.sendRedirect("../login.jsp");
+            return;
+        }
+
         try {
             request.setAttribute("categories", categoryService.getAllCategories());
             request.getRequestDispatcher("/admin/manageCategories.jsp").forward(request, response);
