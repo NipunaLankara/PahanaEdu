@@ -1,13 +1,12 @@
 package servlet.pahanaedu.servlet.admin;
 
-
 import servlet.pahanaedu.model.Category;
 import servlet.pahanaedu.service.CategoryService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-        import java.io.IOException;
+import java.io.IOException;
 import java.sql.SQLException;
 
 @WebServlet("/admin/manageCategory")
@@ -18,6 +17,7 @@ public class ManageCategory extends HttpServlet {
             throws ServletException, IOException {
 
         String action = request.getParameter("action");
+        HttpSession session = request.getSession();
 
         try {
             if ("add".equals(action)) {
@@ -26,10 +26,12 @@ public class ManageCategory extends HttpServlet {
 
                 Category cat = new Category(name, description);
                 categoryService.addCategory(cat);
+                session.setAttribute("successMessage", "Category added successfully!");
 
             } else if ("delete".equals(action)) {
                 int id = Integer.parseInt(request.getParameter("id"));
                 categoryService.deleteCategory(id);
+                session.setAttribute("successMessage", "Category deleted successfully!");
 
             } else if ("update".equals(action)) {
                 int id = Integer.parseInt(request.getParameter("id"));
@@ -38,12 +40,14 @@ public class ManageCategory extends HttpServlet {
 
                 Category cat = new Category(id, name, description);
                 categoryService.updateCategory(cat);
+                session.setAttribute("successMessage", "Category updated successfully!");
             }
         } catch (SQLException e) {
-            throw new ServletException(e);
+            session.setAttribute("errorMessage", "Database error: " + e.getMessage());
         }
 
-        response.sendRedirect("manageCategories.jsp");
+        response.sendRedirect("manageCategory");
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -55,4 +59,6 @@ public class ManageCategory extends HttpServlet {
             throw new ServletException(e);
         }
     }
+
+
 }
