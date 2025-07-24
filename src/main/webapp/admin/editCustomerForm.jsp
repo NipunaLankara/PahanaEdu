@@ -14,9 +14,10 @@
     <link rel="stylesheet" href="css/editCustomerForm.css">
 </head>
 <body>
-<h2>Edit Customer</h2>
+
 
 <form action="updateCustomer" method="post">
+    <h2>Edit Customer</h2>
     <input type="hidden" name="id" value="<%= user.getId() %>" />
 
     Name: <input type="text" name="name" value="<%= user.getName() %>" required><br>

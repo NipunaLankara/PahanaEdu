@@ -3,6 +3,7 @@ package servlet.pahanaedu.servlet;
 import org.mindrot.jbcrypt.BCrypt;
 import servlet.pahanaedu.db.DBConnection;
 import servlet.pahanaedu.model.User;
+import servlet.pahanaedu.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,25 +40,29 @@ public class LoginServlet extends HttpServlet {
                     String loginUserRole = resultSet.getString("role");
 
                     if (checkPassword(password, storedHashedPassword)) {
-                        // Store full user object in session
                         HttpSession session = request.getSession();
-                        User loggedInUser = new User();
-                        loggedInUser.setId(resultSet.getInt("id"));
-                        loggedInUser.setEmail(loginUserEmail);
-                        loggedInUser.setRole(loginUserRole);
 
-                        session.setAttribute("email", loginUserEmail);
-                        session.setAttribute("role", loginUserRole);
-                        session.setAttribute("loggedInUser", loggedInUser); // Store full user object
+                        int userId = resultSet.getInt("id");
+                        UserService userService = new UserService();
+                        User fullUser = userService.getUserById(userId); // fetch full user
 
-                        if ("ADMIN".equalsIgnoreCase(loginUserRole)) {
-                            response.sendRedirect("admin/customers.jsp");
-                        } else if ("CUSTOMER".equalsIgnoreCase(loginUserRole)) {
-                            response.sendRedirect("index.jsp");
+                        if (fullUser != null) {
+                            session.setAttribute("loggedInUser", fullUser);
+                            session.setAttribute("email", fullUser.getEmail());
+                            session.setAttribute("role", fullUser.getRole());
+
+                            if ("ADMIN".equalsIgnoreCase(fullUser.getRole())) {
+                                response.sendRedirect("admin/customers.jsp");
+                            } else if ("CUSTOMER".equalsIgnoreCase(fullUser.getRole())) {
+                                response.sendRedirect("index.jsp");
+                            } else {
+                                errorMessage = "Invalid role. Please contact the administrator.";
+                            }
                         } else {
-                            errorMessage = "Invalid role. Please contact the administrator.";
+                            errorMessage = "User not found.";
                         }
-                    } else {
+                    }
+                    else {
                         errorMessage = "Invalid email or password.";
                     }
                 } else {
