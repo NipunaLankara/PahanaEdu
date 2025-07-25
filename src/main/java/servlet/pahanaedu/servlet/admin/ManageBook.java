@@ -2,6 +2,7 @@ package servlet.pahanaedu.servlet.admin;
 
 import servlet.pahanaedu.model.Book;
 import servlet.pahanaedu.model.Category;
+import servlet.pahanaedu.model.User;
 import servlet.pahanaedu.service.BookService;
 import servlet.pahanaedu.service.CategoryService;
 
@@ -23,8 +24,15 @@ public class ManageBook extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String action = request.getParameter("action");
         HttpSession session = request.getSession();
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+        if (loggedInUser == null || !"ADMIN".equalsIgnoreCase(loggedInUser.getRole())) {
+            response.sendRedirect("../login.jsp");
+            return;
+        }
+
+        String action = request.getParameter("action");
 
         try {
             if ("add".equals(action)) {
@@ -63,6 +71,13 @@ public class ManageBook extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+        if (loggedInUser == null || !"ADMIN".equalsIgnoreCase(loggedInUser.getRole())) {
+            response.sendRedirect("../login.jsp");
+            return;
+        }
 
         String editId = request.getParameter("edit");
 
