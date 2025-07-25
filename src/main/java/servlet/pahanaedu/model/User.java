@@ -87,4 +87,8 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
+
+    public String getPermissions() {
+        return "BASIC_ACCESS";
+    }
 }

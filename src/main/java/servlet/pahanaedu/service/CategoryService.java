@@ -29,10 +29,11 @@ public class CategoryService {
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                Category cat = new Category();
-                cat.setId(rs.getInt("id"));
-                cat.setName(rs.getString("name"));
-                cat.setDescription(rs.getString("description"));
+                Category cat = new Category.Builder()
+                        .id(rs.getInt("id"))
+                        .name(rs.getString("name"))
+                        .description(rs.getString("description"))
+                        .build();
                 categories.add(cat);
             }
         }
@@ -71,11 +72,11 @@ public class CategoryService {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                return new Category(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("description")
-                );
+                return new Category.Builder()
+                        .id(rs.getInt("id"))
+                        .name(rs.getString("name"))
+                        .description(rs.getString("description"))
+                        .build();
             }
         }
 

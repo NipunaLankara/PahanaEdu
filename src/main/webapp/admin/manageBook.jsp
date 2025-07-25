@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="css/manageBook.css">
     <script src="js/manageBook.js" defer></script>
 </head>
+
+<jsp:include page="headerForAdmin.jsp" />
 <body>
 <input type="hidden" id="successMessage" value="<%= successMessage != null ? successMessage : "" %>">
 <input type="hidden" id="errorMessage" value="<%= errorMessage != null ? errorMessage : "" %>">

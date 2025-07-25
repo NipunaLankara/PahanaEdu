@@ -14,12 +14,10 @@ import java.sql.SQLException;
 public class ManageCategory extends HttpServlet {
     private final CategoryService categoryService = new CategoryService();
 
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String action = request.getParameter("action");
-
         HttpSession session = request.getSession();
         User loggedInUser = (User) session.getAttribute("loggedInUser");
 
@@ -33,7 +31,12 @@ public class ManageCategory extends HttpServlet {
                 String name = request.getParameter("name");
                 String description = request.getParameter("description");
 
-                Category cat = new Category(name, description);
+                Category cat = new Category.Builder()
+                        .name(name)
+                        .description(description)
+                        .build();
+
+
                 categoryService.addCategory(cat);
                 session.setAttribute("successMessage", "Category added successfully!");
 
@@ -47,7 +50,13 @@ public class ManageCategory extends HttpServlet {
                 String name = request.getParameter("name");
                 String description = request.getParameter("description");
 
-                Category cat = new Category(id, name, description);
+                Category cat = new Category.Builder()
+                        .id(id)
+                        .name(name)
+                        .description(description)
+                        .build();
+
+
                 categoryService.updateCategory(cat);
                 session.setAttribute("successMessage", "Category updated successfully!");
             }
@@ -56,7 +65,6 @@ public class ManageCategory extends HttpServlet {
         }
 
         response.sendRedirect("manageCategory");
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -76,6 +84,4 @@ public class ManageCategory extends HttpServlet {
             throw new ServletException(e);
         }
     }
-
-
 }

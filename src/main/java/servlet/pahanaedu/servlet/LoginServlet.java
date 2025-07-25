@@ -2,22 +2,17 @@ package servlet.pahanaedu.servlet;
 
 import org.mindrot.jbcrypt.BCrypt;
 import servlet.pahanaedu.db.DBConnection;
+import servlet.pahanaedu.factory.UserFactory;
 import servlet.pahanaedu.model.User;
 import servlet.pahanaedu.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
-@WebServlet ("/login")
+@WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
@@ -28,46 +23,52 @@ public class LoginServlet extends HttpServlet {
             errorMessage = "Username and password are required.";
         } else {
             try (Connection connection = DBConnection.getConnection()) {
-                PreparedStatement preparedStatement = connection.prepareStatement(
-                        "SELECT id, email, password, role FROM user WHERE email = ?"
+                PreparedStatement ps = connection.prepareStatement(
+                        "SELECT id, password, role FROM user WHERE email = ?"
                 );
-                preparedStatement.setString(1, email);
-                ResultSet resultSet = preparedStatement.executeQuery();
+                ps.setString(1, email);
+                ResultSet rs = ps.executeQuery();
 
-                if (resultSet.next()) {
-                    String storedHashedPassword = resultSet.getString("password");
-                    String loginUserEmail = resultSet.getString("email");
-                    String loginUserRole = resultSet.getString("role");
+                if (rs.next()) {
+                    String hashedPassword = rs.getString("password");
+                    String role = rs.getString("role");
+                    int userId = rs.getInt("id");
 
-                    if (checkPassword(password, storedHashedPassword)) {
-                        HttpSession session = request.getSession();
-
-                        int userId = resultSet.getInt("id");
+                    if (checkPassword(password, hashedPassword)) {
                         UserService userService = new UserService();
-                        User fullUser = userService.getUserById(userId); // fetch full user
+                        User baseUser = userService.getUserById(userId); // contains full user details
 
-                        if (fullUser != null) {
-                            session.setAttribute("loggedInUser", fullUser);
-                            session.setAttribute("email", fullUser.getEmail());
-                            session.setAttribute("role", fullUser.getRole());
 
-                            if ("ADMIN".equalsIgnoreCase(fullUser.getRole())) {
-                                response.sendRedirect("admin/customers.jsp");
-                            } else if ("CUSTOMER".equalsIgnoreCase(fullUser.getRole())) {
-                                response.sendRedirect("index.jsp");
-                            } else {
-                                errorMessage = "Invalid role. Please contact the administrator.";
-                            }
+                        User user = UserFactory.createUser(role);
+                        user.setId(baseUser.getId());
+                        user.setName(baseUser.getName());
+                        user.setEmail(baseUser.getEmail());
+                        user.setAddress(baseUser.getAddress());
+                        user.setNic(baseUser.getNic());
+                        user.setContactNumber(baseUser.getContactNumber());
+                        user.setRole(baseUser.getRole());
+
+                        HttpSession session = request.getSession();
+                        session.setAttribute("loggedInUser", user);
+                        session.setAttribute("email", user.getEmail());
+                        session.setAttribute("role", user.getRole());
+
+                        // Redirect based on role
+                        if ("ADMIN".equalsIgnoreCase(user.getRole())) {
+                            response.sendRedirect("admin/customers.jsp");
+                        } else if ("CUSTOMER".equalsIgnoreCase(user.getRole())) {
+                            response.sendRedirect("index.jsp");
                         } else {
-                            errorMessage = "User not found.";
+                            errorMessage = "Unknown role.";
                         }
-                    }
-                    else {
+
+                    } else {
                         errorMessage = "Invalid email or password.";
                     }
                 } else {
                     errorMessage = "Invalid email or password.";
                 }
+
             } catch (SQLException e) {
                 throw new RuntimeException("Database error occurred", e);
             }
