@@ -1,10 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="servlet.pahanaedu.model.Book" %>
-<%@ page import="servlet.pahanaedu.model.Category" %>
+<%@ page import="servlet.pahanaedu.dto.BookDTO" %>
+<%@ page import="servlet.pahanaedu.dto.CategoryDTO" %>
 <%
-    List<Book> books = (List<Book>) request.getAttribute("books");
-    List<Category> categories = (List<Category>) request.getAttribute("categories");
+    List<BookDTO> books = (List<BookDTO>) request.getAttribute("books");
+    List<CategoryDTO> categories = (List<CategoryDTO>) request.getAttribute("categories");
     String successMessage = (String) session.getAttribute("successMessage");
     String errorMessage = (String) session.getAttribute("errorMessage");
     session.removeAttribute("successMessage");
@@ -33,7 +33,7 @@
     Category:
     <select name="categoryId" required>
         <option value="">-- Select --</option>
-        <% for (Category cat : categories) { %>
+        <% for (CategoryDTO cat : categories) { %>
         <option value="<%= cat.getId() %>"><%= cat.getName() %>
         </option>
         <% } %>
@@ -56,7 +56,7 @@
         <th>Actions</th>
     </tr>
     <% if (books != null) {
-        for (Book book : books) {
+        for (BookDTO book : books) {
     %>
     <tr>
         <td><%= book.getId() %>
