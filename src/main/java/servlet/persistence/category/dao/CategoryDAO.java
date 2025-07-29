@@ -1,8 +1,8 @@
-package servlet.pahanaedu.dao;
+package servlet.persistence.category.dao;
 
 import servlet.pahanaedu.db.DBConnection;
-import servlet.pahanaedu.mapper.CategoryMapper;
-import servlet.pahanaedu.model.Category;
+import servlet.pahanaedu.category.mapper.CategoryMapper;
+import servlet.pahanaedu.category.model.Category;
 
 import java.sql.*;
 import java.util.ArrayList;

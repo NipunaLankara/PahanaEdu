@@ -1,5 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="servlet.pahanaedu.dto.UserDTO" %>
+<%@ page import="servlet.pahanaedu.user.dto.UserDTO" %>
 
 
 <!DOCTYPE html>

@@ -1,4 +1,4 @@
-package servlet.pahanaedu.model;
+package servlet.pahanaedu.book.model;
 
 public class Book {
     private int id;

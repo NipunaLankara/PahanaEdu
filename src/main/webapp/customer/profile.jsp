@@ -1,4 +1,4 @@
-<%@ page import="servlet.pahanaedu.model.User" %>
+<%@ page import="servlet.pahanaedu.user.model.User" %>
 <%
   User customer = (User) session.getAttribute("loggedInUser");
   if (customer == null || !"CUSTOMER".equalsIgnoreCase(customer.getRole())) {

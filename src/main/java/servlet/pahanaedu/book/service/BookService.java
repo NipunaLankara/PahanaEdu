@@ -1,9 +1,9 @@
-package servlet.pahanaedu.service;
+package servlet.pahanaedu.book.service;
 
-import servlet.pahanaedu.dao.BookDAO;
-import servlet.pahanaedu.dto.BookDTO;
-import servlet.pahanaedu.mapper.BookMapper;
-import servlet.pahanaedu.model.Book;
+import servlet.persistence.book.dao.BookDAO;
+import servlet.pahanaedu.book.dto.BookDTO;
+import servlet.pahanaedu.book.mapper.BookMapper;
+import servlet.pahanaedu.book.model.Book;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

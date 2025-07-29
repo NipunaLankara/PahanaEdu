@@ -1,8 +1,8 @@
-package servlet.pahanaedu.dao;
+package servlet.persistence.user.dao;
 
 import servlet.pahanaedu.db.DBConnection;
-import servlet.pahanaedu.mapper.UserMapper;
-import servlet.pahanaedu.model.User;
+import servlet.pahanaedu.user.mapper.UserMapper;
+import servlet.pahanaedu.user.model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -116,8 +116,8 @@ public class UserDAO {
 //package servlet.pahanaedu.dao;
 //
 //import servlet.pahanaedu.db.DBConnection;
-//import servlet.pahanaedu.mapper.UserMapper;
-//import servlet.pahanaedu.model.User;
+//import servlet.pahanaedu.user.mapper.UserMapper;
+//import servlet.pahanaedu.user.model.User;
 //
 //import java.sql.*;
 //import java.util.ArrayList;

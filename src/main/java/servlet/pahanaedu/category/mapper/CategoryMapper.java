@@ -1,7 +1,7 @@
-package servlet.pahanaedu.mapper;
+package servlet.pahanaedu.category.mapper;
 
-import servlet.pahanaedu.dto.CategoryDTO;
-import servlet.pahanaedu.model.Category;
+import servlet.pahanaedu.category.dto.CategoryDTO;
+import servlet.pahanaedu.category.model.Category;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

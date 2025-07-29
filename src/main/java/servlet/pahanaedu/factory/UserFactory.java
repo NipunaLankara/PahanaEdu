@@ -1,6 +1,8 @@
 package servlet.pahanaedu.factory;
 
-import servlet.pahanaedu.model.*;
+import servlet.pahanaedu.user.model.AdminUser;
+import servlet.pahanaedu.user.model.CustomerUser;
+import servlet.pahanaedu.user.model.User;
 
 public class UserFactory {
     public static User createUser(String role) {

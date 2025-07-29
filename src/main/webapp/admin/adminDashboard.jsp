@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="servlet.pahanaedu.dto.UserDTO" %>
+<%@ page import="servlet.pahanaedu.user.dto.UserDTO" %>
 <%
     response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     response.setHeader("Pragma", "no-cache");

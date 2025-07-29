@@ -1,4 +1,4 @@
-package servlet.pahanaedu.model;
+package servlet.pahanaedu.user.model;
 
 public class AdminUser extends User {
     @Override

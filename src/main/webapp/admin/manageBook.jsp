@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="servlet.pahanaedu.dto.BookDTO" %>
-<%@ page import="servlet.pahanaedu.dto.CategoryDTO" %>
+<%@ page import="servlet.pahanaedu.book.dto.BookDTO" %>
+<%@ page import="servlet.pahanaedu.category.dto.CategoryDTO" %>
 <%
     List<BookDTO> books = (List<BookDTO>) request.getAttribute("books");
     List<CategoryDTO> categories = (List<CategoryDTO>) request.getAttribute("categories");

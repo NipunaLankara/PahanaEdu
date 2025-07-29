@@ -1,4 +1,4 @@
-package servlet.pahanaedu.dto;
+package servlet.pahanaedu.book.dto;
 
 public class BookDTO {
     private int id;

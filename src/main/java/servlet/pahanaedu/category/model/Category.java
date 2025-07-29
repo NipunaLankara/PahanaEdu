@@ -1,4 +1,4 @@
-package servlet.pahanaedu.model;
+package servlet.pahanaedu.category.model;
 
 public class Category {
     private final int id;

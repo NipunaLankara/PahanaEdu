@@ -1,5 +1,5 @@
 
-<%@ page import="servlet.pahanaedu.dto.UserDTO" %>
+<%@ page import="servlet.pahanaedu.user.dto.UserDTO" %>
 <%
     UserDTO user = (UserDTO) request.getAttribute("user");
     if (user == null) {

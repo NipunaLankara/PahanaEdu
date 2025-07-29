@@ -1,32 +1,28 @@
-package servlet.pahanaedu.dto;
+package servlet.pahanaedu.user.model;
 
-public class UserDTO {
+public class User {
     private int id;
     private String name;
     private String address;
     private String email;
     private String nic;
     private String contactNumber;
+    private String password;
     private String role;
 
-    private String password;
-    private String confirmPassword; // only for validation, not stored in DB
+    public User() {
+    }
 
-    public UserDTO() {}
-
-
-    public UserDTO(String name, String address, String email, String nic, String contactNumber, String password, String confirmPassword) {
+    public User(int id, String name, String address, String email, String nic, String contactNumber, String password, String role) {
+        this.id = id;
         this.name = name;
         this.address = address;
         this.email = email;
         this.nic = nic;
         this.contactNumber = contactNumber;
         this.password = password;
-        this.confirmPassword = confirmPassword;
-        this.role = "CUSTOMER";  // default role
+        this.role = role;
     }
-
-
 
     public int getId() {
         return id;
@@ -72,16 +68,8 @@ public class UserDTO {
         return contactNumber;
     }
 
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
+    public void setContactNumber(String phoneNumber) {
+        this.contactNumber = phoneNumber;
     }
 
     public String getPassword() {
@@ -92,11 +80,15 @@ public class UserDTO {
         this.password = password;
     }
 
-    public String getConfirmPassword() {
-        return confirmPassword;
+    public String getRole() {
+        return role;
     }
 
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getPermissions() {
+        return "BASIC_ACCESS";
     }
 }
