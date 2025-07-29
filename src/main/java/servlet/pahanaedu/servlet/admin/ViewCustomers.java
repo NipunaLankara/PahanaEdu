@@ -1,14 +1,11 @@
 package servlet.pahanaedu.servlet.admin;
 
-import servlet.pahanaedu.model.User;
+import servlet.pahanaedu.dto.UserDTO;
 import servlet.pahanaedu.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -16,11 +13,11 @@ import java.util.List;
 @WebServlet("/admin/customers")
 public class ViewCustomers extends HttpServlet {
 
-    private UserService userService = new UserService();
+    private final UserService userService = new UserService();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        HttpSession session = request.getSession(false);
+        UserDTO loggedInUser = (UserDTO) (session != null ? session.getAttribute("loggedInUser") : null);
 
         if (loggedInUser == null || !"ADMIN".equalsIgnoreCase(loggedInUser.getRole())) {
             response.sendRedirect("../login.jsp");
@@ -28,12 +25,11 @@ public class ViewCustomers extends HttpServlet {
         }
 
         try {
-            List<User> users = userService.getAllCustomers();
-            request.setAttribute("customerList", users);
+            List<UserDTO> customers = userService.getAllCustomers();
+            request.setAttribute("customerList", customers);
             request.getRequestDispatcher("customers.jsp").forward(request, response);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new ServletException("Failed to load customers", e);
         }
     }
-
 }

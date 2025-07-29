@@ -1,6 +1,7 @@
-<%@ page import="servlet.pahanaedu.model.User" %>
+
+<%@ page import="servlet.pahanaedu.dto.UserDTO" %>
 <%
-    User user = (User) request.getAttribute("user");
+    UserDTO user = (UserDTO) request.getAttribute("user");
     if (user == null) {
         response.sendRedirect("customers.jsp");
         return;

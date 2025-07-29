@@ -1,7 +1,6 @@
 package servlet.pahanaedu.servlet.admin;
 
-import servlet.pahanaedu.model.Category;
-import servlet.pahanaedu.model.User;
+import servlet.pahanaedu.dto.UserDTO;
 import servlet.pahanaedu.service.CategoryService;
 
 import javax.servlet.ServletException;
@@ -9,6 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
+
+import servlet.pahanaedu.dto.CategoryDTO;
 
 @WebServlet("/admin/manageCategory")
 public class ManageCategory extends HttpServlet {
@@ -19,7 +21,7 @@ public class ManageCategory extends HttpServlet {
 
         String action = request.getParameter("action");
         HttpSession session = request.getSession();
-        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        UserDTO loggedInUser = (UserDTO) session.getAttribute("loggedInUser");
 
         if (loggedInUser == null || !"ADMIN".equalsIgnoreCase(loggedInUser.getRole())) {
             response.sendRedirect("../login.jsp");
@@ -31,13 +33,11 @@ public class ManageCategory extends HttpServlet {
                 String name = request.getParameter("name");
                 String description = request.getParameter("description");
 
-                Category cat = new Category.Builder()
-                        .name(name)
-                        .description(description)
-                        .build();
+                CategoryDTO dto = new CategoryDTO();
+                dto.setName(name);
+                dto.setDescription(description);
+                categoryService.addCategory(dto);
 
-
-                categoryService.addCategory(cat);
                 session.setAttribute("successMessage", "Category added successfully!");
 
             } else if ("delete".equals(action)) {
@@ -50,14 +50,8 @@ public class ManageCategory extends HttpServlet {
                 String name = request.getParameter("name");
                 String description = request.getParameter("description");
 
-                Category cat = new Category.Builder()
-                        .id(id)
-                        .name(name)
-                        .description(description)
-                        .build();
-
-
-                categoryService.updateCategory(cat);
+                CategoryDTO dto = new CategoryDTO(id, name, description);
+                categoryService.updateCategory(dto);
                 session.setAttribute("successMessage", "Category updated successfully!");
             }
         } catch (SQLException e) {
@@ -70,7 +64,7 @@ public class ManageCategory extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        UserDTO loggedInUser = (UserDTO) session.getAttribute("loggedInUser");
 
         if (loggedInUser == null || !"ADMIN".equalsIgnoreCase(loggedInUser.getRole())) {
             response.sendRedirect("../login.jsp");
@@ -78,10 +72,12 @@ public class ManageCategory extends HttpServlet {
         }
 
         try {
-            request.setAttribute("categories", categoryService.getAllCategories());
+            List<CategoryDTO> categories = categoryService.getAllCategories();
+            request.setAttribute("categories", categories);
             request.getRequestDispatcher("/admin/manageCategories.jsp").forward(request, response);
         } catch (SQLException e) {
             throw new ServletException(e);
         }
     }
 }
+

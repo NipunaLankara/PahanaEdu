@@ -1,6 +1,8 @@
 package servlet.pahanaedu.servlet.customer;
 
 
+import servlet.pahanaedu.dto.UserDTO;
+import servlet.pahanaedu.mapper.UserMapper;
 import servlet.pahanaedu.model.User;
 import servlet.pahanaedu.service.UserService;
 
@@ -33,22 +35,23 @@ public class Profile extends HttpServlet {
         String contact = request.getParameter("contact");
         String address = request.getParameter("address");
 
-        User updatedUser = new User();
-        updatedUser.setId(id);
-        updatedUser.setName(name);
-        updatedUser.setNic(nic);
-        updatedUser.setEmail(email);
-        updatedUser.setContactNumber(contact);
-        updatedUser.setAddress(address);
-        updatedUser.setRole("CUSTOMER"); // Ensure role stays correct
+        UserDTO updatedUserDTO = new UserDTO();
+        updatedUserDTO.setId(id);
+        updatedUserDTO.setName(name);
+        updatedUserDTO.setNic(nic);
+        updatedUserDTO.setEmail(email);
+        updatedUserDTO.setContactNumber(contact);
+        updatedUserDTO.setAddress(address);
+        updatedUserDTO.setRole("CUSTOMER");
 
         UserService userService = new UserService();
         try {
-            userService.updateUser(updatedUser);
-            session.setAttribute("loggedInUser", updatedUser); // Update session
+            userService.updateUser(updatedUserDTO);
+            session.setAttribute("loggedInUser", UserMapper.toEntity(updatedUserDTO)); // Update session properly
             response.sendRedirect("profile.jsp?success=true");
         } catch (SQLException e) {
             throw new ServletException("Error updating profile", e);
         }
+
     }
 }
