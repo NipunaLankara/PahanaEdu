@@ -1,10 +1,10 @@
 package servlet.pahanaedu.servlet.customer;
 
 
-import servlet.pahanaedu.dto.UserDTO;
-import servlet.pahanaedu.mapper.UserMapper;
-import servlet.pahanaedu.model.User;
-import servlet.pahanaedu.service.UserService;
+import servlet.pahanaedu.user.dto.UserDTO;
+import servlet.pahanaedu.user.mapper.UserMapper;
+import servlet.pahanaedu.user.model.User;
+import servlet.pahanaedu.user.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

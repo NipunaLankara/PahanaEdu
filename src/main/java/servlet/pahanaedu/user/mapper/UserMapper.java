@@ -1,7 +1,7 @@
-package servlet.pahanaedu.mapper;
+package servlet.pahanaedu.user.mapper;
 
-import servlet.pahanaedu.dto.UserDTO;
-import servlet.pahanaedu.model.User;
+import servlet.pahanaedu.user.dto.UserDTO;
+import servlet.pahanaedu.user.model.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

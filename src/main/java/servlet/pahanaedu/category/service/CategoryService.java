@@ -1,9 +1,9 @@
-package servlet.pahanaedu.service;
+package servlet.pahanaedu.category.service;
 
-import servlet.pahanaedu.dao.CategoryDAO;
-import servlet.pahanaedu.dto.CategoryDTO;
-import servlet.pahanaedu.mapper.CategoryMapper;
-import servlet.pahanaedu.model.Category;
+import servlet.persistence.category.dao.CategoryDAO;
+import servlet.pahanaedu.category.dto.CategoryDTO;
+import servlet.pahanaedu.category.mapper.CategoryMapper;
+import servlet.pahanaedu.category.model.Category;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
-package servlet.pahanaedu.mapper;
+package servlet.pahanaedu.book.mapper;
 
-import servlet.pahanaedu.dto.BookDTO;
-import servlet.pahanaedu.model.Book;
+import servlet.pahanaedu.book.dto.BookDTO;
+import servlet.pahanaedu.book.model.Book;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

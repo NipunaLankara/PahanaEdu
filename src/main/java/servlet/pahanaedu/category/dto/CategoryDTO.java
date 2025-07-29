@@ -1,4 +1,4 @@
-package servlet.pahanaedu.dto;
+package servlet.pahanaedu.category.dto;
 
 public class CategoryDTO {
     private int id;

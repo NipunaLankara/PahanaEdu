@@ -1,11 +1,11 @@
-package servlet.pahanaedu.service;
+package servlet.pahanaedu.user.service;
 
 
 import org.mindrot.jbcrypt.BCrypt;
-import servlet.pahanaedu.dao.UserDAO;
-import servlet.pahanaedu.dto.UserDTO;
-import servlet.pahanaedu.mapper.UserMapper;
-import servlet.pahanaedu.model.User;
+import servlet.persistence.user.dao.UserDAO;
+import servlet.pahanaedu.user.dto.UserDTO;
+import servlet.pahanaedu.user.mapper.UserMapper;
+import servlet.pahanaedu.user.model.User;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

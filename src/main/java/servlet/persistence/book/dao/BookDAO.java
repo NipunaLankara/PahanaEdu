@@ -1,8 +1,8 @@
-package servlet.pahanaedu.dao;
+package servlet.persistence.book.dao;
 
 import servlet.pahanaedu.db.DBConnection;
-import servlet.pahanaedu.mapper.BookMapper;
-import servlet.pahanaedu.model.Book;
+import servlet.pahanaedu.book.mapper.BookMapper;
+import servlet.pahanaedu.book.model.Book;
 
 import java.sql.*;
 import java.util.ArrayList;

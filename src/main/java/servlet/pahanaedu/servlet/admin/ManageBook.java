@@ -1,12 +1,10 @@
 package servlet.pahanaedu.servlet.admin;
 
-import servlet.pahanaedu.dto.BookDTO;
-import servlet.pahanaedu.dto.CategoryDTO;
-import servlet.pahanaedu.dto.UserDTO;
-import servlet.pahanaedu.model.Book;
-import servlet.pahanaedu.model.User;
-import servlet.pahanaedu.service.BookService;
-import servlet.pahanaedu.service.CategoryService;
+import servlet.pahanaedu.book.dto.BookDTO;
+import servlet.pahanaedu.category.dto.CategoryDTO;
+import servlet.pahanaedu.user.dto.UserDTO;
+import servlet.pahanaedu.book.service.BookService;
+import servlet.pahanaedu.category.service.CategoryService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

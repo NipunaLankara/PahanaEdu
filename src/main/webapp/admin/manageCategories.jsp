@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="servlet.pahanaedu.dto.CategoryDTO" %>
+<%@ page import="servlet.pahanaedu.category.dto.CategoryDTO" %>
 <%
 
     String successMessage = (String) session.getAttribute("successMessage");

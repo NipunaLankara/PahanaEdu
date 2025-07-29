@@ -1,28 +1,32 @@
-package servlet.pahanaedu.model;
+package servlet.pahanaedu.user.dto;
 
-public class User {
+public class UserDTO {
     private int id;
     private String name;
     private String address;
     private String email;
     private String nic;
     private String contactNumber;
-    private String password;
     private String role;
 
-    public User() {
-    }
+    private String password;
+    private String confirmPassword; // only for validation, not stored in DB
 
-    public User(int id, String name, String address, String email, String nic, String contactNumber, String password, String role) {
-        this.id = id;
+    public UserDTO() {}
+
+
+    public UserDTO(String name, String address, String email, String nic, String contactNumber, String password, String confirmPassword) {
         this.name = name;
         this.address = address;
         this.email = email;
         this.nic = nic;
         this.contactNumber = contactNumber;
         this.password = password;
-        this.role = role;
+        this.confirmPassword = confirmPassword;
+        this.role = "CUSTOMER";  // default role
     }
+
+
 
     public int getId() {
         return id;
@@ -68,16 +72,8 @@ public class User {
         return contactNumber;
     }
 
-    public void setContactNumber(String phoneNumber) {
-        this.contactNumber = phoneNumber;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
     }
 
     public String getRole() {
@@ -88,7 +84,19 @@ public class User {
         this.role = role;
     }
 
-    public String getPermissions() {
-        return "BASIC_ACCESS";
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 }
