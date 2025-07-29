@@ -1,19 +1,19 @@
 package servlet.pahanaedu.servlet;
 
-import org.mindrot.jbcrypt.BCrypt;
-import servlet.pahanaedu.db.DBConnection;
-import servlet.pahanaedu.factory.UserFactory;
-import servlet.pahanaedu.model.User;
+import servlet.pahanaedu.dto.UserDTO;
 import servlet.pahanaedu.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.sql.*;
+import java.sql.SQLException;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
+
+    private final UserService userService = new UserService();
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
@@ -22,55 +22,26 @@ public class LoginServlet extends HttpServlet {
         if (email.isEmpty() || password.isEmpty()) {
             errorMessage = "Username and password are required.";
         } else {
-            try (Connection connection = DBConnection.getConnection()) {
-                PreparedStatement ps = connection.prepareStatement(
-                        "SELECT id, password, role FROM user WHERE email = ?"
-                );
-                ps.setString(1, email);
-                ResultSet rs = ps.executeQuery();
+            try {
+                UserDTO userDTO = userService.authenticateUser(email, password);
+                if (userDTO != null) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("loggedInUser", userDTO);
+                    session.setAttribute("email", userDTO.getEmail());
+                    session.setAttribute("role", userDTO.getRole());
 
-                if (rs.next()) {
-                    String hashedPassword = rs.getString("password");
-                    String role = rs.getString("role");
-                    int userId = rs.getInt("id");
-
-                    if (checkPassword(password, hashedPassword)) {
-                        UserService userService = new UserService();
-                        User baseUser = userService.getUserById(userId); // contains full user details
-
-
-                        User user = UserFactory.createUser(role);
-                        user.setId(baseUser.getId());
-                        user.setName(baseUser.getName());
-                        user.setEmail(baseUser.getEmail());
-                        user.setAddress(baseUser.getAddress());
-                        user.setNic(baseUser.getNic());
-                        user.setContactNumber(baseUser.getContactNumber());
-                        user.setRole(baseUser.getRole());
-
-                        HttpSession session = request.getSession();
-                        session.setAttribute("loggedInUser", user);
-                        session.setAttribute("email", user.getEmail());
-                        session.setAttribute("role", user.getRole());
-
-                        // Redirect based on role
-                        if ("ADMIN".equalsIgnoreCase(user.getRole())) {
-                            response.sendRedirect("admin/customers.jsp");
-                        } else if ("CUSTOMER".equalsIgnoreCase(user.getRole())) {
-                            response.sendRedirect("index.jsp");
-                        } else {
-                            errorMessage = "Unknown role.";
-                        }
-
+                    if ("ADMIN".equalsIgnoreCase(userDTO.getRole())) {
+                        response.sendRedirect("admin/adminDashboard.jsp");
+                    } else if ("CUSTOMER".equalsIgnoreCase(userDTO.getRole())) {
+                        response.sendRedirect("index.jsp");
                     } else {
-                        errorMessage = "Invalid email or password.";
+                        errorMessage = "Unknown role.";
                     }
                 } else {
                     errorMessage = "Invalid email or password.";
                 }
-
             } catch (SQLException e) {
-                throw new RuntimeException("Database error occurred", e);
+                throw new ServletException("Database error during login", e);
             }
         }
 
@@ -78,9 +49,5 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("errorMessage", errorMessage);
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
-    }
-
-    public static boolean checkPassword(String plainPassword, String hashedPassword) {
-        return BCrypt.checkpw(plainPassword, hashedPassword);
     }
 }

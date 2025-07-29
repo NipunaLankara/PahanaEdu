@@ -1,5 +1,6 @@
 package servlet.pahanaedu.servlet.admin;
 
+import servlet.pahanaedu.dto.UserDTO;
 import servlet.pahanaedu.model.User;
 import servlet.pahanaedu.service.UserService;
 
@@ -20,7 +21,7 @@ public class DeleteUsers extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        UserDTO loggedInUser = (UserDTO) request.getSession().getAttribute("loggedInUser");
 
         if (loggedInUser == null || !"ADMIN".equalsIgnoreCase(loggedInUser.getRole())) {
             response.sendRedirect("../login.jsp");

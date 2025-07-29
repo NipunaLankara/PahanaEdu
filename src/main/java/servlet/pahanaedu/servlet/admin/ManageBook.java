@@ -1,5 +1,7 @@
 package servlet.pahanaedu.servlet.admin;
 
+import servlet.pahanaedu.dto.CategoryDTO;
+import servlet.pahanaedu.dto.UserDTO;
 import servlet.pahanaedu.model.Book;
 import servlet.pahanaedu.model.Category;
 import servlet.pahanaedu.model.User;
@@ -25,7 +27,7 @@ public class ManageBook extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        UserDTO loggedInUser = (UserDTO) request.getSession().getAttribute("loggedInUser");
 
         if (loggedInUser == null || !"ADMIN".equalsIgnoreCase(loggedInUser.getRole())) {
             response.sendRedirect("../login.jsp");
@@ -83,18 +85,16 @@ public class ManageBook extends HttpServlet {
 
         try {
             if (editId != null) {
-
                 int id = Integer.parseInt(editId);
                 Book book = bookService.getBookById(id);
-                List<Category> categories = categoryService.getAllCategories();
+                List<CategoryDTO> categories = categoryService.getAllCategories();
 
                 request.setAttribute("book", book);
                 request.setAttribute("categories", categories);
                 request.getRequestDispatcher("/admin/editBook.jsp").forward(request, response);
             } else {
-                // Default case: show manageBook.jsp
                 List<Book> books = bookService.getAllBooks();
-                List<Category> categories = categoryService.getAllCategories();
+                List<CategoryDTO> categories = categoryService.getAllCategories();
                 request.setAttribute("books", books);
                 request.setAttribute("categories", categories);
                 request.getRequestDispatcher("/admin/manageBook.jsp").forward(request, response);
@@ -103,5 +103,6 @@ public class ManageBook extends HttpServlet {
             throw new ServletException("Error fetching book or category data", e);
         }
     }
+
 
 }

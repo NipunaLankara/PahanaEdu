@@ -1,85 +1,43 @@
 package servlet.pahanaedu.service;
 
-import servlet.pahanaedu.db.DBConnection;
+import servlet.pahanaedu.dao.CategoryDAO;
+import servlet.pahanaedu.dto.CategoryDTO;
+import servlet.pahanaedu.mapper.CategoryMapper;
 import servlet.pahanaedu.model.Category;
 
-import java.sql.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryService {
 
-    public void addCategory(Category category) throws SQLException {
-        String sql = "INSERT INTO category (name, description) VALUES (?, ?)";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+    private final CategoryDAO categoryDAO = new CategoryDAO();
 
-            stmt.setString(1, category.getName());
-            stmt.setString(2, category.getDescription());
-            stmt.executeUpdate();
-        }
+    public void addCategory(CategoryDTO dto) throws SQLException {
+        Category category = CategoryMapper.toEntity(dto);
+        categoryDAO.save(category);
     }
 
-    public List<Category> getAllCategories() throws SQLException {
-        List<Category> categories = new ArrayList<>();
-        String sql = "SELECT * FROM category";
-
-        try (Connection conn = DBConnection.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-
-            while (rs.next()) {
-                Category cat = new Category.Builder()
-                        .id(rs.getInt("id"))
-                        .name(rs.getString("name"))
-                        .description(rs.getString("description"))
-                        .build();
-                categories.add(cat);
-            }
+    public List<CategoryDTO> getAllCategories() throws SQLException {
+        List<Category> categories = categoryDAO.findAll();
+        List<CategoryDTO> dtos = new ArrayList<>();
+        for (Category c : categories) {
+            dtos.add(CategoryMapper.toDTO(c));
         }
-
-        return categories;
+        return dtos;
     }
 
     public void deleteCategory(int id) throws SQLException {
-        String sql = "DELETE FROM category WHERE id = ?";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setInt(1, id);
-            stmt.executeUpdate();
-        }
+        categoryDAO.delete(id);
     }
 
-    public void updateCategory(Category category) throws SQLException {
-        String sql = "UPDATE category SET name = ?, description = ? WHERE id = ?";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setString(1, category.getName());
-            stmt.setString(2, category.getDescription());
-            stmt.setInt(3, category.getId());
-            stmt.executeUpdate();
-        }
+    public void updateCategory(CategoryDTO dto) throws SQLException {
+        Category category = CategoryMapper.toEntity(dto);
+        categoryDAO.update(category);
     }
 
-    public Category getCategoryById(int id) throws SQLException {
-        String sql = "SELECT * FROM category WHERE id = ?";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                return new Category.Builder()
-                        .id(rs.getInt("id"))
-                        .name(rs.getString("name"))
-                        .description(rs.getString("description"))
-                        .build();
-            }
-        }
-
-        return null;
+    public CategoryDTO getCategoryById(int id) throws SQLException {
+        Category category = categoryDAO.findById(id);
+        return CategoryMapper.toDTO(category);
     }
 }

@@ -1,13 +1,35 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
-<%@ page import="servlet.pahanaedu.model.Category" %>
+<%@ page import="servlet.pahanaedu.dto.CategoryDTO" %>
 <%
-    List<Category> categories = (List<Category>) request.getAttribute("categories");
+
     String successMessage = (String) session.getAttribute("successMessage");
     String errorMessage = (String) session.getAttribute("errorMessage");
     session.removeAttribute("successMessage");
     session.removeAttribute("errorMessage");
+
+
+    List<CategoryDTO> categories = (List<CategoryDTO>) request.getAttribute("categories");
+    if (categories != null) {
+        for (CategoryDTO c : categories) {
 %>
+<tr>
+    <td><%= c.getId() %></td>
+    <td><%= c.getName() %></td>
+    <td><%= c.getDescription() %></td>
+    <td>
+        <form action="manageCategory" method="post" style="display:inline;">
+            <input type="hidden" name="action" value="delete"/>
+            <input type="hidden" name="id" value="<%= c.getId() %>"/>
+            <button type="submit">Delete</button>
+        </form>
+    </td>
+</tr>
+<%
+        }
+    }
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,7 +72,7 @@
 <%--    %>--%>
     <%
         if (categories != null) {
-            for (Category c : categories) {
+            for (CategoryDTO c : categories) {
     %>
     <tr>
         <td><%= c.getId() %></td>

@@ -19,6 +19,7 @@
 </head>
 
 <jsp:include page="headerForAdmin.jsp" />
+
 <body>
 <input type="hidden" id="successMessage" value="<%= successMessage != null ? successMessage : "" %>">
 <input type="hidden" id="errorMessage" value="<%= errorMessage != null ? errorMessage : "" %>">
@@ -66,7 +67,7 @@
         </td>
         <td><%= book.getCategoryId() %>
         </td>
-        <td><%= book.getPrice() %>
+        <td>Rs.<%= book.getPrice() %>
         </td>
         <td><%= book.getQuantity() %>
         </td>

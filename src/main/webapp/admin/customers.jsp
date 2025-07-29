@@ -1,5 +1,6 @@
 <%@ page import="java.util.List" %>
-<%@ page import="servlet.pahanaedu.model.User" %>
+<%@ page import="servlet.pahanaedu.dto.UserDTO" %>
+
 
 <!DOCTYPE html>
 
@@ -39,13 +40,13 @@
             return;
         }
 
-        List<User> customers = (List<User>) request.getAttribute("customerList");
+        List<UserDTO> customers = (List<UserDTO>) request.getAttribute("customerList");
     %>
 
 
     <%
         if (customers != null && !customers.isEmpty()) {
-            for (User user : customers) {
+            for (UserDTO user : customers) {
     %>
     <tr>
         <td><%= user.getId() %></td>
