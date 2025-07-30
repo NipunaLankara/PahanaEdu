@@ -1,6 +1,8 @@
 package servlet.pahanaedu.user.model;
 
-public class User {
+import servlet.pahanaedu.user.model.product.UserType;
+
+public class User implements UserType {
     private int id;
     private String name;
     private String address;
@@ -10,10 +12,10 @@ public class User {
     private String password;
     private String role;
 
-    public User() {
-    }
+    public User() {}
 
-    public User(int id, String name, String address, String email, String nic, String contactNumber, String password, String role) {
+    public User(int id, String name, String address, String email, String nic,
+                String contactNumber, String password, String role) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -24,71 +26,35 @@ public class User {
         this.role = role;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getNic() {
-        return nic;
-    }
-
-    public void setNic(String nic) {
-        this.nic = nic;
-    }
-
-    public String getContactNumber() {
-        return contactNumber;
-    }
-
-    public void setContactNumber(String phoneNumber) {
-        this.contactNumber = phoneNumber;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
+    @Override
     public String getPermissions() {
         return "BASIC_ACCESS";
     }
+
+    // Getters and Setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
+
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    public String getNic() { return nic; }
+    public void setNic(String nic) { this.nic = nic; }
+
+    public String getContactNumber() { return contactNumber; }
+    public void setContactNumber(String contactNumber) { this.contactNumber = contactNumber; }
+
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
 }
+
+

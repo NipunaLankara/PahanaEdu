@@ -1,6 +1,9 @@
+// File: servlet/pahanaedu/servlet/LoginServlet.java
 package servlet.pahanaedu.servlet;
 
+import servlet.pahanaedu.factory.UserFactory;
 import servlet.pahanaedu.user.dto.UserDTO;
+import servlet.pahanaedu.user.model.product.UserType;
 import servlet.pahanaedu.user.service.UserService;
 
 import javax.servlet.ServletException;
@@ -25,10 +28,14 @@ public class LoginServlet extends HttpServlet {
             try {
                 UserDTO userDTO = userService.authenticateUser(email, password);
                 if (userDTO != null) {
+                    // Factory usage
+                    UserType user = UserFactory.createUserByRole(userDTO.getRole());
+
                     HttpSession session = request.getSession();
                     session.setAttribute("loggedInUser", userDTO);
                     session.setAttribute("email", userDTO.getEmail());
                     session.setAttribute("role", userDTO.getRole());
+                    session.setAttribute("permissions", user.getPermissions());
 
                     if ("ADMIN".equalsIgnoreCase(userDTO.getRole())) {
                         response.sendRedirect("admin/adminDashboard.jsp");
