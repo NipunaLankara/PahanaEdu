@@ -1,4 +1,3 @@
-// File: servlet/pahanaedu/user/model/User.java
 package servlet.pahanaedu.user.model;
 
 import servlet.pahanaedu.user.model.product.UserType;
@@ -57,3 +56,5 @@ public class User implements UserType {
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
 }
+
+

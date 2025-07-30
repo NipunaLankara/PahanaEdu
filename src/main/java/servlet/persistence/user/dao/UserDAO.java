@@ -11,7 +11,7 @@ import java.util.List;
 public class UserDAO {
 
     public void save(User user) throws SQLException {
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = DBConnection.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(
                      "INSERT INTO user (name, address, email, nic, contact_number, password, role) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
             stmt.setString(1, user.getName());
@@ -26,7 +26,7 @@ public class UserDAO {
     }
 
     public boolean emailExists(String email) throws SQLException {
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = DBConnection.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement("SELECT 1 FROM user WHERE email = ?")) {
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
@@ -35,7 +35,7 @@ public class UserDAO {
     }
 
     public boolean phoneExists(String phone) throws SQLException {
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = DBConnection.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement("SELECT 1 FROM user WHERE contact_number = ?")) {
             stmt.setString(1, phone);
             ResultSet rs = stmt.executeQuery();
@@ -45,7 +45,7 @@ public class UserDAO {
 
     public List<User> findAllCustomers() throws SQLException {
         List<User> users = new ArrayList<>();
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn =DBConnection.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement("SELECT * FROM user WHERE role = 'CUSTOMER'");
              ResultSet rs = stmt.executeQuery()) {
 
@@ -57,7 +57,7 @@ public class UserDAO {
     }
 
     public User findById(int id) throws SQLException {
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = DBConnection.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement("SELECT * FROM user WHERE id = ?")) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -69,7 +69,7 @@ public class UserDAO {
     }
 
     public User findByEmail(String email) throws SQLException {
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = DBConnection.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement("SELECT * FROM user WHERE email = ?")) {
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
@@ -81,7 +81,7 @@ public class UserDAO {
     }
 
     public void update(User user) throws SQLException {
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = DBConnection.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(
                      "UPDATE user SET name=?, address=?, email=?, nic=?, contact_number=?, role=? WHERE id=?")) {
             stmt.setString(1, user.getName());
@@ -96,7 +96,7 @@ public class UserDAO {
     }
 
     public void delete(int id) throws SQLException {
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = DBConnection.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement("DELETE FROM user WHERE id = ?")) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
