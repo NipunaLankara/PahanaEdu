@@ -1,6 +1,6 @@
 package servlet.persistence.category.dao;
 
-import servlet.pahanaedu.db.DBConnection;
+import servlet.persistence.db.DBConnection;
 import servlet.pahanaedu.category.mapper.CategoryMapper;
 import servlet.pahanaedu.category.model.Category;
 

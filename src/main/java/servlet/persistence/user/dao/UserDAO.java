@@ -1,6 +1,6 @@
 package servlet.persistence.user.dao;
 
-import servlet.pahanaedu.db.DBConnection;
+import servlet.persistence.db.DBConnection;
 import servlet.pahanaedu.user.mapper.UserMapper;
 import servlet.pahanaedu.user.model.User;
 
@@ -102,6 +102,21 @@ public class UserDAO {
             stmt.executeUpdate();
         }
     }
+
+    public int getCustomerIdByEmail(String email) {
+        String sql = "SELECT id FROM user WHERE email = ?";
+        try (Connection conn = DBConnection.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
 }
 
 
@@ -115,7 +130,7 @@ public class UserDAO {
 
 //package servlet.pahanaedu.dao;
 //
-//import servlet.pahanaedu.db.DBConnection;
+//import servlet.persistence.db.DBConnection;
 //import servlet.pahanaedu.user.mapper.UserMapper;
 //import servlet.pahanaedu.user.model.User;
 //

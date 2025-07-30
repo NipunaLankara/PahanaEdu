@@ -1,6 +1,6 @@
 package servlet.persistence.book.dao;
 
-import servlet.pahanaedu.db.DBConnection;
+import servlet.persistence.db.DBConnection;
 import servlet.pahanaedu.book.mapper.BookMapper;
 import servlet.pahanaedu.book.model.Book;
 

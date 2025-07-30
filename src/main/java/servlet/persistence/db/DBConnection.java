@@ -1,6 +1,6 @@
 
 
-package servlet.pahanaedu.db;
+package servlet.persistence.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -49,7 +49,7 @@ public class DBConnection {
 
 
 
-//package servlet.pahanaedu.db;
+//package servlet.persistence.db;
 //
 //import java.sql.Connection;
 //import java.sql.DriverManager;
