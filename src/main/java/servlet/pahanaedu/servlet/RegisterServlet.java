@@ -1,3 +1,4 @@
+// File: servlet/pahanaedu/servlet/RegisterServlet.java
 package servlet.pahanaedu.servlet;
 
 import servlet.pahanaedu.user.dto.UserDTO;
@@ -46,8 +47,7 @@ public class RegisterServlet extends HttpServlet {
                 } else if (userService.checkPhoneNumber(dto.getContactNumber())) {
                     errorMessage = "Phone number is already registered.";
                 } else {
-                    // Register user using DTO - service handles conversion and hashing
-                    userService.registerNewUser(dto);
+                    userService.registerNewUser(dto); // standard registration
                     response.sendRedirect("login.jsp");
                     return;
                 }

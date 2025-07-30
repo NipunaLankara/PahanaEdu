@@ -101,7 +101,8 @@
         <div class="quick-actions">
             <h3>Quick Actions</h3>
             <div class="action-buttons">
-                <a href="customers.jsp" class="action-btn">Add New Customer</a>
+                <a href="addCustomer.jsp" class="action-btn">Add New Customer</a>
+                <a href="customers.jsp" class="action-btn">Manage Customer</a>
                 <a href="manageCategory" class="action-btn">Add New Category</a>
                 <a href="manageBook" class="action-btn">Add New Book</a>
                 <a href="generateReport.jsp" class="action-btn">Generate Report</a>
