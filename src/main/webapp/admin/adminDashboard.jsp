@@ -105,7 +105,7 @@
                 <a href="customers.jsp" class="action-btn">Manage Customer</a>
                 <a href="manageCategory" class="action-btn">Add New Category</a>
                 <a href="manageBook" class="action-btn">Add New Book</a>
-                <a href="createBill.jsp" class="action-btn">Create Bill</a>
+                <a href="bill.jsp" class="action-btn">Create Bill</a>
             </div>
         </div>
     </main>

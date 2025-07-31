@@ -1,19 +1,24 @@
 package servlet.pahanaedu.bill.dto;
 
+import servlet.pahanaedu.book.dto.BookDTO;
+
 public class BuyBookDTO {
     private int bookId;
     private int quantity;
     private double price;
+    private BookDTO book;
 
     public BuyBookDTO() {
     }
 
-    public BuyBookDTO(int bookId, int quantity, double price) {
+    public BuyBookDTO(int bookId, int quantity, double price, BookDTO book) {
         this.bookId = bookId;
         this.quantity = quantity;
         this.price = price;
+        this.book = book;
     }
 
+    // Getters and Setters
     public int getBookId() {
         return bookId;
     }
@@ -36,5 +41,13 @@ public class BuyBookDTO {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public BookDTO getBook() {
+        return book;
+    }
+
+    public void setBook(BookDTO book) {
+        this.book = book;
     }
 }
