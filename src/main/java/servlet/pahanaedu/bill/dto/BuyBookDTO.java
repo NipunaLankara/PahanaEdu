@@ -18,6 +18,12 @@ public class BuyBookDTO {
         this.book = book;
     }
 
+    public BuyBookDTO(BookDTO bookDTO, int quantity, double price) {
+        this.book = bookDTO;
+        this.quantity = quantity;
+        this.price = price;
+    }
+
     // Getters and Setters
     public int getBookId() {
         return bookId;
