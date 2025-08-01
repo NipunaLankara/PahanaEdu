@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class UserMapper {
     public static User map(ResultSet rs) throws SQLException {
         User user = new User();
-        user.setId(rs.getInt("id"));
+        user.setId(rs.getString("id"));
         user.setName(rs.getString("name"));
         user.setAddress(rs.getString("address"));
         user.setEmail(rs.getString("email"));

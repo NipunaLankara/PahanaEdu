@@ -23,7 +23,7 @@ public class UpdateCustomer extends HttpServlet {
         }
 
         try {
-            int id = Integer.parseInt(request.getParameter("id"));
+            String id = request.getParameter("id");
             String name = request.getParameter("name");
             String nic = request.getParameter("nic");
             String email = request.getParameter("email");

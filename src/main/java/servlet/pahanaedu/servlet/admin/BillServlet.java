@@ -26,9 +26,9 @@ public class BillServlet extends HttpServlet {
 
         String action = request.getParameter("action");
         String customerEmail = request.getParameter("customerEmail");
-        int customerId = userDAO.getCustomerIdByEmail(customerEmail);
+        String customerId = userDAO.getCustomerIdByEmail(customerEmail);
 
-        if (customerId == -1) {
+        if (customerId == null) {
             request.setAttribute("error", "Customer not found.");
             forwardToBillForm(request, response, customerEmail, null, null, "confirm");
             return;

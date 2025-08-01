@@ -26,6 +26,9 @@ public class UserService {
         if (user.getRole() == null || user.getRole().isEmpty()) {
             user.setRole("CUSTOMER");
         }
+        // Set generated ID
+        String newUserId = userDAO.generateNewUserId();
+        user.setId(newUserId);
 
         userDAO.save(user);
     }
@@ -51,7 +54,7 @@ public class UserService {
         return dtos;
     }
 
-    public UserDTO getUserById(int id) throws SQLException {
+    public UserDTO getUserById(String id) throws SQLException {
         User user = userDAO.findById(id);
         return UserMapper.toDTO(user);
     }
@@ -69,7 +72,7 @@ public class UserService {
         userDAO.update(user);
     }
 
-    public void deleteUserById(int id) throws SQLException {
+    public void deleteUserById(String id) throws SQLException {
         userDAO.delete(id);
     }
 }

@@ -26,7 +26,8 @@ public class DeleteUsers extends HttpServlet {
             response.sendRedirect("../login.jsp");
             return;
         }
-        int userId = Integer.parseInt(request.getParameter("id"));
+//        int userId = Integer.parseInt(request.getParameter("id"));
+        String userId = request.getParameter("id");
         try {
             userService.deleteUserById(userId);
         } catch (SQLException e) {

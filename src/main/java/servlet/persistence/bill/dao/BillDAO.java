@@ -19,7 +19,7 @@ public class BillDAO {
             conn.setAutoCommit(false);
 
             try (PreparedStatement billStmt = conn.prepareStatement(insertBillSQL, Statement.RETURN_GENERATED_KEYS)) {
-                billStmt.setInt(1, bill.getCustomerId());
+                billStmt.setString(1, bill.getCustomerId());
                 billStmt.setDouble(2, bill.getTotalAmount());
                 billStmt.executeUpdate();
 
@@ -65,7 +65,7 @@ public class BillDAO {
 
             if (!billRs.next()) return null;
 
-            int customerId = billRs.getInt("customer_id");
+            String customerId = billRs.getString("customer_id");
             double total = billRs.getDouble("total_amount");
             Date createdAt = new Date(billRs.getTimestamp("created_at").getTime());
 

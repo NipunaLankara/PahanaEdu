@@ -3,24 +3,24 @@ package servlet.pahanaedu.bill.dto;
 import java.util.List;
 
 public class BillDTO {
-    private int customerId;
+    private String customerId;
     private double totalAmount;
     private List<BuyBookDTO> items;
 
     public BillDTO() {
     }
 
-    public BillDTO(int customerId, double totalAmount, List<BuyBookDTO> items) {
+    public BillDTO(String customerId, double totalAmount, List<BuyBookDTO> items) {
         this.customerId = customerId;
         this.totalAmount = totalAmount;
         this.items = items;
     }
 
-    public int getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(String customerId) {
         this.customerId = customerId;
     }
 
