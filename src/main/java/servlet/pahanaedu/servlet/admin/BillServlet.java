@@ -24,13 +24,13 @@ public class BillServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String action = request.getParameter("action"); // check what the form is doing
+        String action = request.getParameter("action");
         String customerEmail = request.getParameter("customerEmail");
         int customerId = userDAO.getCustomerIdByEmail(customerEmail);
 
         if (customerId == -1) {
             request.setAttribute("error", "Customer not found.");
-            request.getRequestDispatcher("/admin/bill.jsp").forward(request, response);
+            forwardToBillForm(request, response, customerEmail, null, null, "confirm");
             return;
         }
 
@@ -39,7 +39,7 @@ public class BillServlet extends HttpServlet {
 
         if (bookIds == null || bookIds.length == 0) {
             request.setAttribute("error", "No books provided.");
-            request.getRequestDispatcher("/admin/bill.jsp").forward(request, response);
+            forwardToBillForm(request, response, customerEmail, null, null, "confirm");
             return;
         }
 
@@ -50,12 +50,13 @@ public class BillServlet extends HttpServlet {
             int bookId = Integer.parseInt(bookIds[i]);
             int qty = Integer.parseInt(quantities[i]);
 
-            BookDTO book = null;
+            BookDTO book;
             try {
                 book = bookService.getBookById(bookId);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
+
             if (book == null) continue;
 
             double price = book.getPrice();
@@ -71,19 +72,27 @@ public class BillServlet extends HttpServlet {
         }
 
         if ("confirm".equals(action)) {
-            // Step 1: Show bill confirmation before placing order
-            request.setAttribute("customerEmail", customerEmail);
-            request.setAttribute("buyBookList", items);
-            request.setAttribute("total", total);
-            request.setAttribute("action", "create"); // to show place order button
-            request.getRequestDispatcher("/admin/bill.jsp").forward(request, response);
-
+            forwardToBillForm(request, response, customerEmail, items, total, "create");
         } else if ("create".equals(action)) {
-            // Step 2: Actually place the bill
             BillDTO bill = new BillDTO(customerId, total, items);
             boolean success = billService.createBill(bill);
-            request.setAttribute("message", success ? "Bill successfully created!" : "Failed to create bill.");
-            request.getRequestDispatcher("/admin/bill.jsp").forward(request, response);
+
+            // After placing bill, show empty form with success message
+            request.setAttribute("message", success ? "✅ Bill successfully created!" : "❌ Failed to create bill.");
+            forwardToBillForm(request, response, "", null, null, "confirm");
         }
     }
+
+    private void forwardToBillForm(HttpServletRequest request, HttpServletResponse response,
+                                   String email, List<BuyBookDTO> list, Double total, String action)
+            throws ServletException, IOException {
+
+        request.setAttribute("customerEmail", email);
+        request.setAttribute("buyBookList", list);
+        request.setAttribute("total", total);
+        request.setAttribute("action", action);
+        request.getRequestDispatcher("/admin/bill.jsp").forward(request, response);
+    }
 }
+
+
