@@ -1,26 +1,30 @@
 package servlet.pahanaedu.bill.dto;
 
+import servlet.pahanaedu.user.dto.UserDTO;
+
 import java.util.List;
 
 public class BillDTO {
-    private int customerId;
+    private String customerId;
     private double totalAmount;
     private List<BuyBookDTO> items;
+
+    private UserDTO customer;
 
     public BillDTO() {
     }
 
-    public BillDTO(int customerId, double totalAmount, List<BuyBookDTO> items) {
+    public BillDTO(String customerId, double totalAmount, List<BuyBookDTO> items) {
         this.customerId = customerId;
         this.totalAmount = totalAmount;
         this.items = items;
     }
 
-    public int getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(String customerId) {
         this.customerId = customerId;
     }
 
@@ -38,6 +42,14 @@ public class BillDTO {
 
     public void setItems(List<BuyBookDTO> items) {
         this.items = items;
+    }
+
+    public UserDTO getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(UserDTO customer) {
+        this.customer = customer;
     }
 }
 

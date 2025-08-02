@@ -26,9 +26,9 @@ public class BillServlet extends HttpServlet {
 
         String action = request.getParameter("action");
         String customerEmail = request.getParameter("customerEmail");
-        int customerId = userDAO.getCustomerIdByEmail(customerEmail);
+        String customerId = userDAO.getCustomerIdByEmail(customerEmail);
 
-        if (customerId == -1) {
+        if (customerId == null) {
             request.setAttribute("error", "Customer not found.");
             forwardToBillForm(request, response, customerEmail, null, null, "confirm");
             return;
@@ -75,11 +75,16 @@ public class BillServlet extends HttpServlet {
             forwardToBillForm(request, response, customerEmail, items, total, "create");
         } else if ("create".equals(action)) {
             BillDTO bill = new BillDTO(customerId, total, items);
-            boolean success = billService.createBill(bill);
+            int billId = billService.createBill(bill);
 
-            // After placing bill, show empty form with success message
-            request.setAttribute("message", success ? "✅ Bill successfully created!" : "❌ Failed to create bill.");
-            forwardToBillForm(request, response, "", null, null, "confirm");
+            if (billId != -1) {
+                response.sendRedirect("print-bill?billId=" + billId); // ✅ Redirect directly to print-bill.jsp
+            } else {
+                request.setAttribute("message", "Failed to create bill.");
+                request.getRequestDispatcher("/admin/bill.jsp").forward(request, response);
+            }
+
+
         }
     }
 

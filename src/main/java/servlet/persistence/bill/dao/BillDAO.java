@@ -5,11 +5,13 @@ import servlet.pahanaedu.bill.model.BuyBook;
 import servlet.persistence.db.DBConnection;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class BillDAO {
 
-    public boolean saveBill(Bill bill) {
+    public int saveBill(Bill bill) {
         String insertBillSQL = "INSERT INTO bill (customer_id, total_amount, created_at) VALUES (?, ?, NOW())";
         String insertBuySQL = "INSERT INTO buy_books (bill_id, book_id, quantity, price) VALUES (?, ?, ?, ?)";
 
@@ -17,7 +19,7 @@ public class BillDAO {
             conn.setAutoCommit(false);
 
             try (PreparedStatement billStmt = conn.prepareStatement(insertBillSQL, Statement.RETURN_GENERATED_KEYS)) {
-                billStmt.setInt(1, bill.getCustomerId());
+                billStmt.setString(1, bill.getCustomerId());
                 billStmt.setDouble(2, bill.getTotalAmount());
                 billStmt.executeUpdate();
 
@@ -33,22 +35,61 @@ public class BillDAO {
                                 buyStmt.setDouble(4, item.getPrice());
                                 buyStmt.addBatch();
                             }
-
                             buyStmt.executeBatch();
                         }
 
                         conn.commit();
-                        return true;
+                        return billId;
                     } else {
                         conn.rollback();
                     }
                 }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+
+    public Bill getBillById(int billId) {
+        String billSQL = "SELECT * FROM bill WHERE id = ?";
+        String itemsSQL = "SELECT * FROM buy_books WHERE bill_id = ?";
+
+        try (Connection conn = DBConnection.getInstance().getConnection();
+             PreparedStatement billStmt = conn.prepareStatement(billSQL);
+             PreparedStatement itemsStmt = conn.prepareStatement(itemsSQL)) {
+
+            billStmt.setInt(1, billId);
+            ResultSet billRs = billStmt.executeQuery();
+
+            if (!billRs.next()) return null;
+
+            String customerId = billRs.getString("customer_id");
+            double total = billRs.getDouble("total_amount");
+            Date createdAt = new Date(billRs.getTimestamp("created_at").getTime());
+
+            List<BuyBook> items = new ArrayList<>();
+            itemsStmt.setInt(1, billId);
+            ResultSet itemRs = itemsStmt.executeQuery();
+            while (itemRs.next()) {
+                items.add(new BuyBook(
+                        itemRs.getInt("id"),
+                        billId,
+                        itemRs.getInt("book_id"),
+                        itemRs.getInt("quantity"),
+                        itemRs.getDouble("price")
+                ));
+            }
+
+            return new Bill(billId, customerId, total, createdAt, items);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return false;
+        return null;
     }
+
+
 }

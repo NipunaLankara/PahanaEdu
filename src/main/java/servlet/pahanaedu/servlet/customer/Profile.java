@@ -28,7 +28,7 @@ public class Profile extends HttpServlet {
             return;
         }
 
-        int id = loggedInUser.getId();
+        String id = loggedInUser.getId();
         String name = request.getParameter("name");
         String nic = request.getParameter("nic");
         String email = request.getParameter("email");

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Bill {
     private int id;
-    private int customerId;
+    private String customerId;
     private double totalAmount;
     private Date createdAt;
     private List<BuyBook> buyBooks;
@@ -13,14 +13,14 @@ public class Bill {
     public Bill() {
     }
 
-    public Bill(int customerId, double totalAmount, Date createdAt, List<BuyBook> buyBooks) {
+    public Bill(String customerId, double totalAmount, Date createdAt, List<BuyBook> buyBooks) {
         this.customerId = customerId;
         this.totalAmount = totalAmount;
         this.createdAt = createdAt;
         this.buyBooks = buyBooks;
     }
 
-    public Bill(int id, int customerId, double totalAmount, Date createdAt, List<BuyBook> buyBooks) {
+    public Bill(int id, String customerId, double totalAmount, Date createdAt, List<BuyBook> buyBooks) {
         this.id = id;
         this.customerId = customerId;
         this.totalAmount = totalAmount;
@@ -36,11 +36,11 @@ public class Bill {
         this.id = id;
     }
 
-    public int getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(String customerId) {
         this.customerId = customerId;
     }
 
