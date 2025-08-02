@@ -13,14 +13,15 @@ public class UserDAO {
     public void save(User user) throws SQLException {
         try (Connection conn = DBConnection.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(
-                     "INSERT INTO user (name, address, email, nic, contact_number, password, role) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
-            stmt.setString(1, user.getName());
-            stmt.setString(2, user.getAddress());
-            stmt.setString(3, user.getEmail());
-            stmt.setString(4, user.getNic());
-            stmt.setString(5, user.getContactNumber());
-            stmt.setString(6, user.getPassword());
-            stmt.setString(7, user.getRole());
+                     "INSERT INTO user (id, name, address, email, nic, contact_number, password, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
+            stmt.setString(1, user.getId());
+            stmt.setString(2, user.getName());
+            stmt.setString(3, user.getAddress());
+            stmt.setString(4, user.getEmail());
+            stmt.setString(5, user.getNic());
+            stmt.setString(6, user.getContactNumber());
+            stmt.setString(7, user.getPassword());
+            stmt.setString(8, user.getRole());
             stmt.executeUpdate();
         }
     }
@@ -56,10 +57,10 @@ public class UserDAO {
         return users;
     }
 
-    public User findById(int id) throws SQLException {
+    public User findById(String id) throws SQLException {
         try (Connection conn = DBConnection.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement("SELECT * FROM user WHERE id = ?")) {
-            stmt.setInt(1, id);
+            stmt.setString(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return UserMapper.map(rs);
@@ -90,33 +91,50 @@ public class UserDAO {
             stmt.setString(4, user.getNic());
             stmt.setString(5, user.getContactNumber());
             stmt.setString(6, user.getRole());
-            stmt.setInt(7, user.getId());
+            stmt.setString(7, user.getId());
             stmt.executeUpdate();
         }
     }
 
-    public void delete(int id) throws SQLException {
+    public void delete(String id) throws SQLException {
         try (Connection conn = DBConnection.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement("DELETE FROM user WHERE id = ?")) {
-            stmt.setInt(1, id);
+            stmt.setString(1, id);
             stmt.executeUpdate();
         }
     }
 
-    public int getCustomerIdByEmail(String email) {
+    public String getCustomerIdByEmail(String email) {
         String sql = "SELECT id FROM user WHERE email = ?";
         try (Connection conn = DBConnection.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return rs.getInt("id");
+                return rs.getString("id");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return -1;
+        return "ERROR";
     }
+
+    public String generateNewUserId() throws SQLException {
+        String sql = "SELECT id FROM user ORDER BY id DESC LIMIT 1";
+        try (Connection conn = DBConnection.getInstance().getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            if (rs.next()) {
+                String lastId = rs.getString("id"); // e.g., "U009"
+                int num = Integer.parseInt(lastId.substring(1)) + 1;
+                return String.format("U%03d", num);
+            } else {
+                return "U001";
+            }
+        }
+    }
+
 }
 
 

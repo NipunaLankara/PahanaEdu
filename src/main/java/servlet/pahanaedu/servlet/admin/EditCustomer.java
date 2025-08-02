@@ -22,7 +22,7 @@ public class EditCustomer extends HttpServlet {
             return;
         }
 
-        int id = Integer.parseInt(request.getParameter("id"));
+        String id =request.getParameter("id");
 
         try {
             UserDTO userDTO = userService.getUserById(id);
