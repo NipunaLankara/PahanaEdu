@@ -1,7 +1,7 @@
 package servlet.pahanaedu.servlet.admin;
 
-import servlet.pahanaedu.dto.UserDTO;
-import servlet.pahanaedu.service.CategoryService;
+import servlet.pahanaedu.user.dto.UserDTO;
+import servlet.pahanaedu.category.service.CategoryService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-import servlet.pahanaedu.dto.CategoryDTO;
+import servlet.pahanaedu.category.dto.CategoryDTO;
 
 @WebServlet("/admin/manageCategory")
 public class ManageCategory extends HttpServlet {

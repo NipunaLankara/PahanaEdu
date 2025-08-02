@@ -1,12 +1,10 @@
 package servlet.pahanaedu.servlet.admin;
 
-import servlet.pahanaedu.dto.CategoryDTO;
-import servlet.pahanaedu.dto.UserDTO;
-import servlet.pahanaedu.model.Book;
-import servlet.pahanaedu.model.Category;
-import servlet.pahanaedu.model.User;
-import servlet.pahanaedu.service.BookService;
-import servlet.pahanaedu.service.CategoryService;
+import servlet.pahanaedu.book.dto.BookDTO;
+import servlet.pahanaedu.category.dto.CategoryDTO;
+import servlet.pahanaedu.user.dto.UserDTO;
+import servlet.pahanaedu.book.service.BookService;
+import servlet.pahanaedu.category.service.CategoryService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,8 +42,8 @@ public class ManageBook extends HttpServlet {
                 int quantity = Integer.parseInt(request.getParameter("quantity"));
                 int categoryId = Integer.parseInt(request.getParameter("categoryId"));
 
-                Book book = new Book(title, author, price, quantity, categoryId);
-                bookService.addBook(book);
+                BookDTO bookDTO = new BookDTO(title, author, price, quantity, categoryId);
+                bookService.addBook(bookDTO);
                 session.setAttribute("successMessage", "Book added successfully!");
             } else if ("delete".equals(action)) {
                 int id = Integer.parseInt(request.getParameter("id"));
@@ -59,8 +57,8 @@ public class ManageBook extends HttpServlet {
                 int quantity = Integer.parseInt(request.getParameter("quantity"));
                 int categoryId = Integer.parseInt(request.getParameter("categoryId"));
 
-                Book book = new Book(id, title, author, price, quantity, categoryId);
-                bookService.updateBook(book);
+                BookDTO bookDTO = new BookDTO(id, title, author, price, quantity, categoryId);
+                bookService.updateBook(bookDTO);
                 session.setAttribute("successMessage", "Book updated successfully!");
             }
         } catch (SQLException e) {
@@ -74,7 +72,7 @@ public class ManageBook extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        UserDTO loggedInUser = (UserDTO) session.getAttribute("loggedInUser");
 
         if (loggedInUser == null || !"ADMIN".equalsIgnoreCase(loggedInUser.getRole())) {
             response.sendRedirect("../login.jsp");
@@ -86,16 +84,16 @@ public class ManageBook extends HttpServlet {
         try {
             if (editId != null) {
                 int id = Integer.parseInt(editId);
-                Book book = bookService.getBookById(id);
+                BookDTO bookDTO = bookService.getBookById(id);
                 List<CategoryDTO> categories = categoryService.getAllCategories();
 
-                request.setAttribute("book", book);
+                request.setAttribute("book", bookDTO);
                 request.setAttribute("categories", categories);
                 request.getRequestDispatcher("/admin/editBook.jsp").forward(request, response);
             } else {
-                List<Book> books = bookService.getAllBooks();
+                List<BookDTO> bookDTOS = bookService.getAllBooks();
                 List<CategoryDTO> categories = categoryService.getAllCategories();
-                request.setAttribute("books", books);
+                request.setAttribute("books", bookDTOS);
                 request.setAttribute("categories", categories);
                 request.getRequestDispatcher("/admin/manageBook.jsp").forward(request, response);
             }

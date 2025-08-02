@@ -1,9 +1,14 @@
+
 package servlet.pahanaedu.factory;
 
-import servlet.pahanaedu.model.*;
+import servlet.pahanaedu.user.model.*;
+import servlet.pahanaedu.user.model.concrete_products.AdminUser;
+import servlet.pahanaedu.user.model.concrete_products.CustomerUser;
+import servlet.pahanaedu.user.model.product.UserType;
 
 public class UserFactory {
-    public static User createUser(String role) {
+
+    public static UserType createUserByRole(String role) {
         if (role == null) {
             throw new IllegalArgumentException("Role cannot be null");
         }
@@ -14,9 +19,7 @@ public class UserFactory {
             case "CUSTOMER":
                 return new CustomerUser();
             default:
-                return new User(); // fallback to base User
+                return new User(); // fallback
         }
     }
 }
-
-
