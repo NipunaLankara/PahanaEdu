@@ -21,7 +21,7 @@ public class Profile extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        UserDTO loggedInUser = (UserDTO) session.getAttribute("loggedInUser");
 
         if (loggedInUser == null || !"CUSTOMER".equalsIgnoreCase(loggedInUser.getRole())) {
             response.sendRedirect("../login.jsp");
@@ -47,7 +47,7 @@ public class Profile extends HttpServlet {
         UserService userService = new UserService();
         try {
             userService.updateUser(updatedUserDTO);
-            session.setAttribute("loggedInUser", UserMapper.toEntity(updatedUserDTO)); // Update session properly
+            session.setAttribute("loggedInUser", updatedUserDTO);
             response.sendRedirect("profile.jsp?success=true");
         } catch (SQLException e) {
             throw new ServletException("Error updating profile", e);
