@@ -2,10 +2,21 @@
 <%@ page import="servlet.pahanaedu.bill.dto.BuyBookDTO" %>
 <%@ page import="servlet.pahanaedu.book.dto.BookDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="servlet.pahanaedu.user.dto.UserDTO" %>
 <%
   BillDTO bill = (BillDTO) request.getAttribute("bill");
   if (bill == null) return;
+
+  UserDTO customer = bill.getCustomer();
 %>
+
+<h2>📚 Pahana Book Shop - Bill</h2>
+<hr>
+<p><strong>Customer ID:</strong> <%= customer.getId() %></p>
+<p><strong>Name:</strong> <%= customer.getName() %></p>
+<p><strong>Email:</strong> <%= customer.getEmail() %></p>
+<p><strong>Contact Number:</strong> <%= customer.getContactNumber() %></p>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +31,7 @@
 </head>
 <body>
 <div class="bill-container">
-  <h2>📚 Pahana Book Shop - Bill</h2>
+
   <hr>
   <p><strong>Customer ID:</strong> <%= bill.getCustomerId() %></p>
   <table border="1" width="100%" cellpadding="10" cellspacing="0">

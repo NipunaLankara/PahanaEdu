@@ -6,7 +6,11 @@ import servlet.pahanaedu.bill.model.Bill;
 import servlet.pahanaedu.bill.model.BuyBook;
 import servlet.pahanaedu.book.dto.BookDTO;
 import servlet.pahanaedu.book.model.Book;
+import servlet.pahanaedu.user.dto.UserDTO;
+import servlet.pahanaedu.user.mapper.UserMapper;
+import servlet.pahanaedu.user.model.User;
 import servlet.persistence.book.dao.BookDAO;
+import servlet.persistence.user.dao.UserDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +35,20 @@ public class BillMapper {
         return bill;
     }
 
+//    public static BillDTO toDTO(Bill entity) {
+//        List<BuyBookDTO> items = new ArrayList<>();
+//        BookDAO bookDAO = new BookDAO();
+//
+//        for (BuyBook item : entity.getBuyBooks()) {
+//            Book book = bookDAO.getBookById(item.getBookId());
+//            BookDTO bookDTO = new BookDTO(book.getId(), book.getTitle(), book.getAuthor(), book.getPrice(), book.getQuantity(), book.getCategoryId());
+//            items.add(new BuyBookDTO(bookDTO, item.getQuantity(), item.getPrice()));
+//        }
+//
+//        return new BillDTO(entity.getCustomerId(), entity.getTotalAmount(), items);
+//    }
+
+
     public static BillDTO toDTO(Bill entity) {
         List<BuyBookDTO> items = new ArrayList<>();
         BookDAO bookDAO = new BookDAO();
@@ -41,6 +59,21 @@ public class BillMapper {
             items.add(new BuyBookDTO(bookDTO, item.getQuantity(), item.getPrice()));
         }
 
-        return new BillDTO(entity.getCustomerId(), entity.getTotalAmount(), items);
+        // Fetch full customer info
+        UserDTO customerDTO = null;
+        try {
+            UserDAO userDAO = new UserDAO();
+            User user = userDAO.findById(entity.getCustomerId());
+            if (user != null) {
+                customerDTO = UserMapper.toDTO(user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // or log it
+        }
+
+        BillDTO dto = new BillDTO(entity.getCustomerId(), entity.getTotalAmount(), items);
+        dto.setCustomer(customerDTO); // <-- Set the full customer info
+
+        return dto;
     }
 }
