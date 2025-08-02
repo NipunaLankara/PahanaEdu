@@ -3,7 +3,7 @@ package servlet.pahanaedu.user.model;
 import servlet.pahanaedu.user.model.product.UserType;
 
 public class User implements UserType {
-    private int id;
+    private String id;
     private String name;
     private String address;
     private String email;
@@ -14,7 +14,7 @@ public class User implements UserType {
 
     public User() {}
 
-    public User(int id, String name, String address, String email, String nic,
+    public User(String id, String name, String address, String email, String nic,
                 String contactNumber, String password, String role) {
         this.id = id;
         this.name = name;
@@ -31,9 +31,13 @@ public class User implements UserType {
         return "BASIC_ACCESS";
     }
 
-    // Getters and Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
