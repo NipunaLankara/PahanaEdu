@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
                     if ("ADMIN".equalsIgnoreCase(userDTO.getRole())) {
                         response.sendRedirect("admin/adminDashboard.jsp");
                     } else if ("CUSTOMER".equalsIgnoreCase(userDTO.getRole())) {
-                        response.sendRedirect("index.jsp");
+                        response.sendRedirect("customer/profile.jsp");
                     } else {
                         errorMessage = "Unknown role.";
                     }
