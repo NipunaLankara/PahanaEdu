@@ -1,6 +1,6 @@
-<%@ page import="servlet.pahanaedu.user.model.User" %>
+<%@ page import="servlet.pahanaedu.user.dto.UserDTO" %>
 <%
-  User customer = (User) session.getAttribute("loggedInUser");
+  UserDTO customer = (UserDTO) session.getAttribute("loggedInUser");
   if (customer == null || !"CUSTOMER".equalsIgnoreCase(customer.getRole())) {
     response.sendRedirect("../login.jsp");
     return;
