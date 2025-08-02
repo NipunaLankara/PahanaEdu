@@ -28,6 +28,7 @@ public class Profile extends HttpServlet {
             return;
         }
 
+//        sdffs
         String id = loggedInUser.getId();
         String name = request.getParameter("name");
         String nic = request.getParameter("nic");
