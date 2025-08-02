@@ -1,38 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bills Display Design</title>
+  <link rel="stylesheet" href="css/billList.css">
+</head>
+<body>
+<!-- Your existing JSP code would go here with the CSS classes applied -->
+
 <%@ page import="java.util.List" %>
 <%@ page import="servlet.pahanaedu.bill.dto.BillDTO" %>
 <%@ page import="servlet.pahanaedu.bill.dto.BuyBookDTO" %>
 <%@ page import="servlet.pahanaedu.user.dto.UserDTO" %>
 
-<%
-  List<BillDTO> bills = (List<BillDTO>) request.getAttribute("bills");
-%>
+<% List<BillDTO> bills = (List<BillDTO>) request.getAttribute("bills"); %>
 
-<h2>🧾 All Bills</h2>
-<% for (BillDTO bill : bills) {
-  UserDTO customer = bill.getCustomer();
-%>
-<hr>
-<p><strong>Bill Total:</strong> LKR <%= bill.getTotalAmount() %></p>
-<% if (customer != null) { %>
-<p><strong>Customer:</strong> <%= customer.getName() %> (<%= customer.getEmail() %>)</p>
-<% } else { %>
-<p><strong>Customer:</strong> Unknown</p>
-<% } %>
+<div class="bills-container">
+  <h2 class="page-title">🧾 All Bills</h2>
 
-<table border="1">
-  <tr>
-    <th>Book Title</th>
-    <th>Quantity</th>
-    <th>Unit Price</th>
-    <th>Subtotal</th>
-  </tr>
-  <% for (BuyBookDTO item : bill.getItems()) { %>
-  <tr>
-    <td><%= item.getBook().getTitle() %></td>
-    <td><%= item.getQuantity() %></td>
-    <td>LKR <%= item.getPrice() %></td>
-    <td>LKR <%= item.getPrice() * item.getQuantity() %></td>
-  </tr>
+  <% for (BillDTO bill : bills) {
+    UserDTO customer = bill.getCustomer(); %>
+
+  <div class="bill-card">
+    <div class="bill-header">
+      <div class="bill-total">
+        <span class="total-label">Bill Total:</span>
+        <span class="total-amount">LKR <%= bill.getTotalAmount() %></span>
+      </div>
+
+      <div class="customer-info">
+        <% if (customer != null) { %>
+        <p class="customer-details">
+          <strong>Customer:</strong> <%= customer.getName() %>
+          <span class="customer-email">(<%= customer.getEmail() %>)</span>
+        </p>
+        <% } else { %>
+        <p class="customer-details unknown">
+          <strong>Customer:</strong> Unknown
+        </p>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="items-section">
+      <table class="items-table">
+        <thead>
+        <tr>
+          <th>Book Title</th>
+          <th>Quantity</th>
+          <th>Unit Price</th>
+          <th>Subtotal</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for (BuyBookDTO item : bill.getItems()) { %>
+        <tr class="item-row">
+          <td class="book-title"><%= item.getBook().getTitle() %></td>
+          <td class="quantity"><%= item.getQuantity() %></td>
+          <td class="unit-price">LKR <%= item.getPrice() %></td>
+          <td class="subtotal">LKR <%= item.getPrice() * item.getQuantity() %></td>
+        </tr>
+        <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
   <% } %>
-</table>
-<% } %>
+</div>
+
+<script src="js/billLIst.js"></script>
+</body>
+</html>
+
+
+<%--<%@ page import="java.util.List" %>--%>
+<%--<%@ page import="servlet.pahanaedu.bill.dto.BillDTO" %>--%>
+<%--<%@ page import="servlet.pahanaedu.bill.dto.BuyBookDTO" %>--%>
+<%--<%@ page import="servlet.pahanaedu.user.dto.UserDTO" %>--%>
+
+<%--<%--%>
+<%--  List<BillDTO> bills = (List<BillDTO>) request.getAttribute("bills");--%>
+<%--%>--%>
+
+<%--<h2>🧾 All Bills</h2>--%>
+<%--<% for (BillDTO bill : bills) {--%>
+<%--  UserDTO customer = bill.getCustomer();--%>
+<%--%>--%>
+<%--<hr>--%>
+<%--<p><strong>Bill Total:</strong> LKR <%= bill.getTotalAmount() %></p>--%>
+<%--<% if (customer != null) { %>--%>
+<%--<p><strong>Customer:</strong> <%= customer.getName() %> (<%= customer.getEmail() %>)</p>--%>
+<%--<% } else { %>--%>
+<%--<p><strong>Customer:</strong> Unknown</p>--%>
+<%--<% } %>--%>
+
+<%--<table border="1">--%>
+<%--  <tr>--%>
+<%--    <th>Book Title</th>--%>
+<%--    <th>Quantity</th>--%>
+<%--    <th>Unit Price</th>--%>
+<%--    <th>Subtotal</th>--%>
+<%--  </tr>--%>
+<%--  <% for (BuyBookDTO item : bill.getItems()) { %>--%>
+<%--  <tr>--%>
+<%--    <td><%= item.getBook().getTitle() %></td>--%>
+<%--    <td><%= item.getQuantity() %></td>--%>
+<%--    <td>LKR <%= item.getPrice() %></td>--%>
+<%--    <td>LKR <%= item.getPrice() * item.getQuantity() %></td>--%>
+<%--  </tr>--%>
+<%--  <% } %>--%>
+<%--</table>--%>
+<%--<% } %>--%>
