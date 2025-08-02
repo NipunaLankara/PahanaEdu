@@ -88,16 +88,47 @@ public class BillServlet extends HttpServlet {
         }
     }
 
-    private void forwardToBillForm(HttpServletRequest request, HttpServletResponse response,
-                                   String email, List<BuyBookDTO> list, Double total, String action)
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.setAttribute("customerEmail", email);
-        request.setAttribute("buyBookList", list);
-        request.setAttribute("total", total);
-        request.setAttribute("action", action);
-        request.getRequestDispatcher("/admin/bill.jsp").forward(request, response);
+        // Default to empty form with "create" action
+        forwardToBillForm(request, response, null, null, null, "create");
     }
+
+
+private void forwardToBillForm(HttpServletRequest request, HttpServletResponse response,
+                               String email, List<BuyBookDTO> list, Double total, String action)
+        throws ServletException, IOException {
+
+    request.setAttribute("customerEmail", email);
+    request.setAttribute("buyBookList", list);
+    request.setAttribute("total", total);
+    request.setAttribute("action", action);
+
+    try {
+        List<BookDTO> books = bookService.getAllBooks();
+        System.out.println("Loaded books count: " + (books != null ? books.size() : "null"));
+
+        request.setAttribute("bookList", books);
+    } catch (SQLException e) {
+        throw new ServletException("Error loading books", e);
+    }
+
+
+    request.getRequestDispatcher("/admin/bill.jsp").forward(request, response);
+}
+
 }
 
 
+//    private void forwardToBillForm(HttpServletRequest request, HttpServletResponse response,
+//                                   String email, List<BuyBookDTO> list, Double total, String action)
+//            throws ServletException, IOException {
+//
+//        request.setAttribute("customerEmail", email);
+//        request.setAttribute("buyBookList", list);
+//        request.setAttribute("total", total);
+//        request.setAttribute("action", action);
+//        request.getRequestDispatcher("/admin/bill.jsp").forward(request, response);
+//    }
