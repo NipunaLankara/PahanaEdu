@@ -91,5 +91,48 @@ public class BillDAO {
         return null;
     }
 
+    public List<Bill> getAllBills() {
+        List<Bill> bills = new ArrayList<>();
+        String billSQL = "SELECT * FROM bill";
+        String itemsSQL = "SELECT * FROM buy_books WHERE bill_id = ?";
+
+        try (Connection conn = DBConnection.getInstance().getConnection();
+             PreparedStatement billStmt = conn.prepareStatement(billSQL)) {
+
+            ResultSet billRs = billStmt.executeQuery();
+
+            while (billRs.next()) {
+                int billId = billRs.getInt("id");
+                String customerId = billRs.getString("customer_id");
+                double total = billRs.getDouble("total_amount");
+                Date createdAt = new Date(billRs.getTimestamp("created_at").getTime());
+
+                List<BuyBook> items = new ArrayList<>();
+
+                try (PreparedStatement itemsStmt = conn.prepareStatement(itemsSQL)) {
+                    itemsStmt.setInt(1, billId);
+                    ResultSet itemRs = itemsStmt.executeQuery();
+                    while (itemRs.next()) {
+                        items.add(new BuyBook(
+                                itemRs.getInt("id"),
+                                billId,
+                                itemRs.getInt("book_id"),
+                                itemRs.getInt("quantity"),
+                                itemRs.getDouble("price")
+                        ));
+                    }
+                }
+
+                bills.add(new Bill(billId, customerId, total, createdAt, items));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return bills;
+    }
+
+
 
 }
