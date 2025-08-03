@@ -51,7 +51,6 @@ public class BillServlet extends HttpServlet {
             return;
         }
 
-        // For "confirm" or "create" actions
         if (customerId == null) {
             request.setAttribute("error", "Customer not found.");
             forwardToBillForm(request, response, null, null, null, "create");
@@ -69,6 +68,7 @@ public class BillServlet extends HttpServlet {
 
         List<BuyBookDTO> items = new ArrayList<>();
         double total = 0;
+        List<String> stockErrors = new ArrayList<>();
 
         for (int i = 0; i < bookIds.length; i++) {
             int bookId = Integer.parseInt(bookIds[i]);
@@ -83,6 +83,11 @@ public class BillServlet extends HttpServlet {
 
             if (book == null) continue;
 
+            if (qty > book.getQuantity()) {
+                stockErrors.add("Only " + book.getQuantity() + " copies available for book: " + book.getTitle());
+                continue;
+            }
+
             double price = book.getPrice();
             double subtotal = price * qty;
             total += subtotal;
@@ -95,13 +100,18 @@ public class BillServlet extends HttpServlet {
             items.add(item);
         }
 
+        // Handle insufficient stock
+        if (!stockErrors.isEmpty()) {
+            request.setAttribute("error", String.join("<br/>", stockErrors));
+            forwardToBillForm(request, response, customerEmail, items, total, "confirm");
+            return;
+        }
+
         if ("confirm".equals(action)) {
             forwardToBillForm(request, response, customerEmail, items, total, "create");
-
         } else if ("create".equals(action)) {
             BillDTO bill = new BillDTO(customerId, total, items);
-            int billId;
-            billId = billService.createBill(bill);
+            int billId = billService.createBill(bill);
 
             if (billId != -1) {
                 response.sendRedirect("print-bill?billId=" + billId);
