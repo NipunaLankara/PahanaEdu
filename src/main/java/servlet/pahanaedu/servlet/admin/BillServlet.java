@@ -5,7 +5,7 @@ import servlet.pahanaedu.bill.dto.BuyBookDTO;
 import servlet.pahanaedu.bill.service.BillService;
 import servlet.pahanaedu.book.dto.BookDTO;
 import servlet.pahanaedu.book.service.BookService;
-import servlet.persistence.user.dao.UserDAO;
+import servlet.pahanaedu.user.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +17,7 @@ import java.util.*;
 @WebServlet("/admin/bill")
 public class BillServlet extends HttpServlet {
     private final BillService billService = new BillService();
-    private final UserDAO userDAO = new UserDAO();
+    private final UserService userService = new UserService();
     private final BookService bookService = new BookService();
 
     @Override
@@ -26,11 +26,35 @@ public class BillServlet extends HttpServlet {
 
         String action = request.getParameter("action");
         String customerEmail = request.getParameter("customerEmail");
-        String customerId = userDAO.getCustomerIdByEmail(customerEmail);
 
+        if (customerEmail == null || customerEmail.trim().isEmpty() || !isValidEmail(customerEmail)) {
+            request.setAttribute("error", "Invalid email format.");
+            forwardToBillForm(request, response, null, null, null, "create");
+            return;
+        }
+
+        String customerId = null;
+        try {
+            customerId = userService.getCustomerIdByEmail(customerEmail);
+        } catch (SQLException e) {
+            throw new ServletException("Failed to retrieve customer by email.", e);
+        }
+
+        if ("verify".equals(action)) {
+            if (customerId == null) {
+                request.setAttribute("error", "Customer email not found.");
+                forwardToBillForm(request, response, null, null, null, "create");
+            } else {
+                request.setAttribute("message", "Customer email verified successfully.");
+                forwardToBillForm(request, response, customerEmail, null, null, "confirm");
+            }
+            return;
+        }
+
+        // For "confirm" or "create" actions
         if (customerId == null) {
             request.setAttribute("error", "Customer not found.");
-            forwardToBillForm(request, response, customerEmail, null, null, "confirm");
+            forwardToBillForm(request, response, null, null, null, "create");
             return;
         }
 
@@ -54,7 +78,7 @@ public class BillServlet extends HttpServlet {
             try {
                 book = bookService.getBookById(bookId);
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                throw new ServletException("Error retrieving book", e);
             }
 
             if (book == null) continue;
@@ -73,62 +97,46 @@ public class BillServlet extends HttpServlet {
 
         if ("confirm".equals(action)) {
             forwardToBillForm(request, response, customerEmail, items, total, "create");
+
         } else if ("create".equals(action)) {
             BillDTO bill = new BillDTO(customerId, total, items);
-            int billId = billService.createBill(bill);
+            int billId;
+            billId = billService.createBill(bill);
 
             if (billId != -1) {
-                response.sendRedirect("print-bill?billId=" + billId); // ✅ Redirect directly to print-bill.jsp
+                response.sendRedirect("print-bill?billId=" + billId);
             } else {
                 request.setAttribute("message", "Failed to create bill.");
-                request.getRequestDispatcher("/admin/bill.jsp").forward(request, response);
+                forwardToBillForm(request, response, customerEmail, items, total, "create");
             }
-
-
         }
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        // Default to empty form with "create" action
         forwardToBillForm(request, response, null, null, null, "create");
     }
 
+    private void forwardToBillForm(HttpServletRequest request, HttpServletResponse response,
+                                   String email, List<BuyBookDTO> list, Double total, String action)
+            throws ServletException, IOException {
+        request.setAttribute("customerEmail", email);
+        request.setAttribute("buyBookList", list);
+        request.setAttribute("total", total);
+        request.setAttribute("action", action);
 
-private void forwardToBillForm(HttpServletRequest request, HttpServletResponse response,
-                               String email, List<BuyBookDTO> list, Double total, String action)
-        throws ServletException, IOException {
+        try {
+            List<BookDTO> books = bookService.getAllBooks();
+            request.setAttribute("bookList", books);
+        } catch (SQLException e) {
+            throw new ServletException("Error loading books", e);
+        }
 
-    request.setAttribute("customerEmail", email);
-    request.setAttribute("buyBookList", list);
-    request.setAttribute("total", total);
-    request.setAttribute("action", action);
-
-    try {
-        List<BookDTO> books = bookService.getAllBooks();
-        System.out.println("Loaded books count: " + (books != null ? books.size() : "null"));
-
-        request.setAttribute("bookList", books);
-    } catch (SQLException e) {
-        throw new ServletException("Error loading books", e);
+        request.getRequestDispatcher("/admin/bill.jsp").forward(request, response);
     }
 
-
-    request.getRequestDispatcher("/admin/bill.jsp").forward(request, response);
+    private boolean isValidEmail(String email) {
+        return email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
+    }
 }
-
-}
-
-
-//    private void forwardToBillForm(HttpServletRequest request, HttpServletResponse response,
-//                                   String email, List<BuyBookDTO> list, Double total, String action)
-//            throws ServletException, IOException {
-//
-//        request.setAttribute("customerEmail", email);
-//        request.setAttribute("buyBookList", list);
-//        request.setAttribute("total", total);
-//        request.setAttribute("action", action);
-//        request.getRequestDispatcher("/admin/bill.jsp").forward(request, response);
-//    }
