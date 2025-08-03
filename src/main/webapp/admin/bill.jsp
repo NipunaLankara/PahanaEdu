@@ -129,9 +129,10 @@
 </div>
 
 
-<%--<script src="js/bill.js"></script>--%>
+<script src="js/bill.js"></script>
 
 <script>
+
     function setAction(actionValue) {
         document.getElementById('actionInput').value = actionValue;
     }
@@ -152,19 +153,85 @@
    } else { %>
     <option disabled>No books available</option>
 <% } %>
-
 </select>
 <input type="number" name="quantity" placeholder="Quantity" required min="1" />
+<button type="button" class="btn remove-btn" title="Remove this book">×</button>
 `;
         container.appendChild(div);
+
+        // Add event listener to the remove button
+        const removeBtn = div.querySelector('.remove-btn');
+        removeBtn.addEventListener('click', function() {
+            removeBookInput(this);
+        });
+    }
+
+    function removeBookInput(button) {
+        console.log('Remove button clicked'); // Debug log
+        const row = button.closest('.form-row');
+        console.log('Found row:', row); // Debug log
+
+        if (row) {
+            // Check if this is the only book input row
+            const allRows = document.querySelectorAll('#bookInputs .form-row');
+            if (allRows.length <= 1) {
+                alert('You must have at least one book in the bill');
+                return;
+            }
+
+            row.style.transition = "all 0.3s ease";
+            row.style.opacity = "0";
+            row.style.transform = "translateX(-20px)";
+
+            setTimeout(() => {
+                row.remove();
+                console.log('Row removed'); // Debug log
+            }, 300);
+        } else {
+            console.log('Row not found'); // Debug log
+        }
     }
 
     function submitForm(action) {
         document.getElementById('actionInput').value = action;
         document.getElementById('billForm').submit();
     }
-
 </script>
+
+<%--<script>--%>
+<%--    function setAction(actionValue) {--%>
+<%--        document.getElementById('actionInput').value = actionValue;--%>
+<%--    }--%>
+
+<%--    function addBookInput() {--%>
+<%--        const container = document.getElementById("bookInputs");--%>
+<%--        const div = document.createElement("div");--%>
+<%--        div.className = "form-row";--%>
+<%--        div.innerHTML = `--%>
+<%--<select name="bookId" required>--%>
+<%--    <option value="">-- Select Book --</option>--%>
+<%--    <% if (bookList != null) {--%>
+<%--     for (BookDTO book : bookList) { %>--%>
+<%--    <option value="<%= book.getId() %>">--%>
+<%--        <%= book.getTitle() %> by <%= book.getAuthor() %> (Rs. <%= book.getPrice() %>)--%>
+<%--    </option>--%>
+<%--<%  }--%>
+<%--   } else { %>--%>
+<%--    <option disabled>No books available</option>--%>
+<%--<% } %>--%>
+
+<%--</select>--%>
+<%--<input type="number" name="quantity" placeholder="Quantity" required min="1" />--%>
+<%--`;--%>
+<%--        container.appendChild(div);--%>
+<%--    }--%>
+
+<%--    function submitForm(action) {--%>
+<%--        document.getElementById('actionInput').value = action;--%>
+<%--        document.getElementById('billForm').submit();--%>
+<%--    }--%>
+
+<%--</script>--%>
 
 
 </body>
