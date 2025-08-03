@@ -101,4 +101,19 @@ public class BookDAO {
 
         return null;
     }
+
+    public void reduceQuantity(int bookId, int qty) throws SQLException {
+        String sql = "UPDATE book SET quantity = quantity - ? WHERE id = ? AND quantity >= ?";
+        try (Connection conn = DBConnection.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, qty);
+            stmt.setInt(2, bookId);
+            stmt.setInt(3, qty); // Ensure no negative stock
+            int affected = stmt.executeUpdate();
+            if (affected == 0) {
+                throw new SQLException("Insufficient stock for book ID: " + bookId);
+            }
+        }
+    }
+
 }

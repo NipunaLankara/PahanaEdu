@@ -29,9 +29,11 @@
     </div>
     <% } %>
     <% if (error != null) { %>
-    <div class="error"><%= error %>
+    <div class="error" style="color: red; font-weight: bold; margin-bottom: 10px;">
+        <%= error.replaceAll("\\n", "<br/>") %>
     </div>
     <% } %>
+
 
     <form method="post" action="bill" id="billForm">
         <input type="hidden" name="action" id="actionInput" value="<%= action %>"/>
