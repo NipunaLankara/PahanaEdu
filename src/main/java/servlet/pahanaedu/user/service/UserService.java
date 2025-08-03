@@ -59,6 +59,14 @@ public class UserService {
         return UserMapper.toDTO(user);
     }
 
+    public String getCustomerIdByEmail(String email) throws SQLException {
+        User user = userDAO.findByEmail(email);
+        if (user != null && "CUSTOMER".equalsIgnoreCase(user.getRole())) {
+            return user.getId();
+        }
+        return null;
+    }
+
     public UserDTO authenticateUser(String email, String password) throws SQLException {
         User user = userDAO.findByEmail(email);
         if (user != null && org.mindrot.jbcrypt.BCrypt.checkpw(password, user.getPassword())) {
