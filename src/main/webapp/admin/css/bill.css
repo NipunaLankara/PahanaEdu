@@ -309,3 +309,11 @@ tbody tr:last-child td {
 .print-btn:hover {
     background-color: #388e3c;
 }
+
+.verify-btn {
+    background-color: #337ab7;
+    color: white;
+    padding: 6px 10px;
+    border: none;
+    margin-left: 10px;
+}
