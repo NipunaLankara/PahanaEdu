@@ -1,4 +1,4 @@
-// Modern Bill Page JavaScript Functionality
+// Fixed Bill Page JavaScript to match JSP structure
 
 document.addEventListener('DOMContentLoaded', function() {
     initializePage();
@@ -16,24 +16,127 @@ function initializePage() {
 
     // Initialize tooltips
     initializeTooltips();
+
+    // Initialize existing remove buttons (if any)
+    initializeRemoveButtons();
 }
 
-function addBookInput() {
+// Initialize remove buttons for any existing dynamically added rows
+function initializeRemoveButtons() {
+    const existingRemoveButtons = document.querySelectorAll('.remove-btn');
+    existingRemoveButtons.forEach(button => {
+        // Remove any existing event listeners and add new one
+        button.replaceWith(button.cloneNode(true));
+        const newButton = document.querySelector('.remove-btn:last-of-type') || button;
+        newButton.addEventListener('click', function() {
+            removeBookInput(this);
+        });
+    });
+}
+
+// This function matches the JSP's addBookInput structure with select dropdown
+// Only define if not already defined in JSP
+if (typeof addBookInput === 'undefined') {
+    function addBookInput() {
+        const container = document.getElementById("bookInputs");
+        const div = document.createElement("div");
+        div.className = "form-row";
+        div.style.opacity = "0";
+        div.style.transform = "translateY(-20px)";
+
+        // Get the book options from the existing select element
+        const existingSelect = container.querySelector('select[name="bookId"]');
+        let optionsHTML = '<option value="">-- Select Book --</option>';
+
+        if (existingSelect) {
+            // Copy options from existing select
+            const options = existingSelect.querySelectorAll('option');
+            options.forEach(option => {
+                if (option.value !== '') {
+                    optionsHTML += option.outerHTML;
+                }
+            });
+        } else {
+            optionsHTML += '<option disabled>No books available</option>';
+        }
+
+        div.innerHTML = `
+            <select name="bookId" required>
+                ${optionsHTML}
+            </select>
+            <input type="number" name="quantity" placeholder="Quantity" required min="1" />
+            <button type="button" class="btn remove-btn" title="Remove this book">
+                ×
+            </button>
+        `;
+
+        container.appendChild(div);
+
+        // Add event listener to the remove button (instead of onclick attribute)
+        const removeBtn = div.querySelector('.remove-btn');
+        removeBtn.addEventListener('click', function() {
+            removeBookInput(this);
+        });
+
+        // Animate the new row
+        setTimeout(() => {
+            div.style.transition = "all 0.3s ease";
+            div.style.opacity = "1";
+            div.style.transform = "translateY(0)";
+        }, 50);
+
+        // Add focus to the select
+        const firstSelect = div.querySelector('select[name="bookId"]');
+        if (firstSelect) {
+            firstSelect.focus();
+        }
+
+        // Update button count
+        updateAddButtonText();
+    }
+}
+
+// Make addBookInput globally available
+window.addBookInput = function() {
     const container = document.getElementById("bookInputs");
     const div = document.createElement("div");
     div.className = "form-row";
     div.style.opacity = "0";
     div.style.transform = "translateY(-20px)";
 
+    // Get the book options from the existing select element
+    const existingSelect = container.querySelector('select[name="bookId"]');
+    let optionsHTML = '<option value="">-- Select Book --</option>';
+
+    if (existingSelect) {
+        // Copy options from existing select
+        const options = existingSelect.querySelectorAll('option');
+        options.forEach(option => {
+            if (option.value !== '') {
+                optionsHTML += option.outerHTML;
+            }
+        });
+    } else {
+        optionsHTML += '<option disabled>No books available</option>';
+    }
+
     div.innerHTML = `
-        <input type="number" name="bookId" placeholder="Book ID" required />
+        <select name="bookId" required>
+            ${optionsHTML}
+        </select>
         <input type="number" name="quantity" placeholder="Quantity" required min="1" />
-        <button type="button" class="btn remove-btn" onclick="removeBookInput(this)" title="Remove this book">
-            <i>×</i>
+        <button type="button" class="btn remove-btn" title="Remove this book">
+            ×
         </button>
     `;
 
     container.appendChild(div);
+
+    // Add event listener to the remove button (instead of onclick attribute)
+    const removeBtn = div.querySelector('.remove-btn');
+    removeBtn.addEventListener('click', function() {
+        removeBookInput(this);
+    });
 
     // Animate the new row
     setTimeout(() => {
@@ -42,19 +145,29 @@ function addBookInput() {
         div.style.transform = "translateY(0)";
     }, 50);
 
-    // Add focus to the first input
-    const firstInput = div.querySelector('input[name="bookId"]');
-    if (firstInput) {
-        firstInput.focus();
+    // Add focus to the select
+    const firstSelect = div.querySelector('select[name="bookId"]');
+    if (firstSelect) {
+        firstSelect.focus();
     }
 
     // Update button count
     updateAddButtonText();
-}
+};
 
 function removeBookInput(button) {
+    console.log('Remove button clicked'); // Debug log
     const row = button.closest('.form-row');
+    console.log('Found row:', row); // Debug log
+
     if (row) {
+        // Check if this is the only book input row
+        const allRows = document.querySelectorAll('#bookInputs .form-row');
+        if (allRows.length <= 1) {
+            alert('You must have at least one book in the bill');
+            return;
+        }
+
         row.style.transition = "all 0.3s ease";
         row.style.opacity = "0";
         row.style.transform = "translateX(-20px)";
@@ -62,7 +175,10 @@ function removeBookInput(button) {
         setTimeout(() => {
             row.remove();
             updateAddButtonText();
+            console.log('Row removed'); // Debug log
         }, 300);
+    } else {
+        console.log('Row not found'); // Debug log
     }
 }
 
@@ -77,6 +193,30 @@ function updateAddButtonText() {
             `+ Add Another Book (${count} added)`;
     }
 }
+
+// Functions that match JSP action handling - check if they already exist
+if (typeof setAction === 'undefined') {
+    function setAction(actionValue) {
+        document.getElementById('actionInput').value = actionValue;
+    }
+}
+
+if (typeof submitForm === 'undefined') {
+    function submitForm(action) {
+        document.getElementById('actionInput').value = action;
+        document.getElementById('billForm').submit();
+    }
+}
+
+// Make these functions globally available
+window.setAction = function(actionValue) {
+    document.getElementById('actionInput').value = actionValue;
+};
+
+window.submitForm = function(action) {
+    document.getElementById('actionInput').value = action;
+    document.getElementById('billForm').submit();
+};
 
 function animateElements() {
     // Animate sections on scroll
@@ -123,7 +263,9 @@ function initializeValidation() {
 
 function validateForm() {
     const customerEmail = document.querySelector('input[name="customerEmail"]');
-    const bookIds = document.querySelectorAll('input[name="bookId"]');
+    // Check for both select dropdowns AND hidden inputs
+    const bookSelects = document.querySelectorAll('select[name="bookId"]');
+    const bookHiddenInputs = document.querySelectorAll('input[type="hidden"][name="bookId"]');
     const quantities = document.querySelectorAll('input[name="quantity"]');
 
     let isValid = true;
@@ -137,23 +279,36 @@ function validateForm() {
         isValid = false;
     }
 
-    // Validate book inputs
-    if (bookIds.length === 0) {
+    // Validate book inputs - check for either select dropdowns OR hidden inputs
+    const totalBooks = bookSelects.length + bookHiddenInputs.length;
+
+    if (totalBooks === 0) {
         showError('Please add at least one book to the bill');
         isValid = false;
     } else {
-        bookIds.forEach((bookId, index) => {
-            if (!bookId.value || bookId.value <= 0) {
-                showFieldError(bookId, 'Please enter a valid Book ID');
+        // Validate select dropdowns (if any)
+        bookSelects.forEach((bookSelect, index) => {
+            if (!bookSelect.value) {
+                showFieldError(bookSelect, 'Please select a book');
                 isValid = false;
             }
 
-            const quantity = quantities[index];
-            if (!quantity.value || quantity.value <= 0) {
+            // Find corresponding quantity input (not hidden)
+            const visibleQuantities = document.querySelectorAll('input[name="quantity"]:not([type="hidden"])');
+            const quantity = visibleQuantities[index];
+            if (quantity && (!quantity.value || quantity.value <= 0)) {
                 showFieldError(quantity, 'Please enter a valid quantity');
                 isValid = false;
             }
         });
+
+        // Hidden inputs are already validated by the server, so we don't need to validate them again
+        // But we can check if there are visible quantity inputs that need validation
+        const visibleQuantities = document.querySelectorAll('input[name="quantity"]:not([type="hidden"])');
+        if (bookSelects.length > 0 && visibleQuantities.length !== bookSelects.length) {
+            showError('Quantity inputs missing for some books');
+            isValid = false;
+        }
     }
 
     return isValid;
@@ -189,10 +344,10 @@ function clearValidationErrors() {
     // Clear field errors
     document.querySelectorAll('.field-error').forEach(error => error.remove());
 
-    // Reset field styles
-    document.querySelectorAll('input').forEach(input => {
-        input.style.borderColor = '#e8f4fd';
-        input.style.boxShadow = '';
+    // Reset field styles for both inputs and selects
+    document.querySelectorAll('input, select').forEach(field => {
+        field.style.borderColor = '#e8f4fd';
+        field.style.boxShadow = '';
     });
 
     // Clear general errors
@@ -274,31 +429,37 @@ function addInteractiveEffects() {
         });
     });
 
-    // Add floating labels effect
-    const inputs = document.querySelectorAll('input');
-    inputs.forEach(input => {
-        input.addEventListener('focus', function() {
+    // Add floating labels effect for inputs and selects
+    const formFields = document.querySelectorAll('input, select');
+    formFields.forEach(field => {
+        field.addEventListener('focus', function() {
             this.parentNode.style.transform = 'translateY(-2px)';
         });
 
-        input.addEventListener('blur', function() {
+        field.addEventListener('blur', function() {
             this.parentNode.style.transform = 'translateY(0)';
         });
     });
 }
 
 function initializeTooltips() {
-    // Add tooltips to inputs
-    const bookIdInputs = document.querySelectorAll('input[name="bookId"]');
+    // Add tooltips to selects and inputs
+    const bookSelects = document.querySelectorAll('select[name="bookId"]');
     const quantityInputs = document.querySelectorAll('input[name="quantity"]');
 
-    bookIdInputs.forEach(input => {
-        input.title = 'Enter the unique identifier for the book';
+    bookSelects.forEach(select => {
+        select.title = 'Select a book from the available options';
     });
 
     quantityInputs.forEach(input => {
         input.title = 'Enter the number of copies to purchase';
     });
+
+    // Add tooltip to verify email button
+    const verifyBtn = document.querySelector('.verify-btn');
+    if (verifyBtn) {
+        verifyBtn.title = 'Click to verify the customer email address';
+    }
 }
 
 // Utility functions
@@ -318,13 +479,19 @@ function debounce(func, wait) {
     };
 }
 
-// Add CSS for spinner and pulse animations
+// Add CSS for animations and styling
 const style = document.createElement('style');
 style.textContent = `
     @keyframes pulse {
         0% { transform: scale(1); }
         50% { transform: scale(1.05); }
         100% { transform: scale(1); }
+    }
+    
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
     }
     
     .spinner {
@@ -357,6 +524,7 @@ style.textContent = `
         cursor: pointer;
         transition: all 0.3s ease;
         box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+        margin-left: 10px;
     }
     
     .remove-btn:hover {
@@ -367,7 +535,18 @@ style.textContent = `
     .field-error {
         animation: shake 0.5s ease-in-out;
     }
+    
+    .form-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+    
+    .form-row select,
+    .form-row input {
+        flex: 1;
+    }
 `;
-
 
 document.head.appendChild(style);

@@ -60,5 +60,17 @@ public int createBill(BillDTO billDTO) {
         return dtos;
     }
 
+    public List<BillDTO> getBillsByCustomerId(String customerId) {
+        List<Bill> bills = billDAO.getBillsByCustomerId(customerId);
+        List<BillDTO> dtos = new ArrayList<>();
+
+        for (Bill bill : bills) {
+            dtos.add(BillMapper.toDTO(bill));
+        }
+
+        return dtos;
+    }
+
+
 
 }
