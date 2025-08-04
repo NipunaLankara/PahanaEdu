@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 public class BillDTO {
+    private int id;
     private String customerId;
     private double totalAmount;
     private List<BuyBookDTO> items;
@@ -16,17 +17,28 @@ public class BillDTO {
     public BillDTO() {
     }
 
-    public BillDTO(String customerId, double totalAmount, List<BuyBookDTO> items, Date createdAt) {
+
+    public BillDTO(String customerId, double total, List<BuyBookDTO> items) {
+        this.customerId = customerId;
+        this.totalAmount = total;
+        this.items = items;
+    }
+
+
+    public BillDTO(int id, String customerId, double totalAmount, List<BuyBookDTO> items, Date createdAt) {
+        this.id = id;
         this.customerId = customerId;
         this.totalAmount = totalAmount;
         this.items = items;
         this.createdAt = createdAt;
     }
 
-    public BillDTO(String customerId, double total, List<BuyBookDTO> items) {
-        this.customerId = customerId;
-        this.totalAmount = total;
-        this.items = items;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     // Getters and Setters
