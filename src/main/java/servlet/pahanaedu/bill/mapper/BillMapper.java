@@ -71,7 +71,7 @@ public class BillMapper {
             e.printStackTrace(); // or log it
         }
 
-        BillDTO dto = new BillDTO(entity.getCustomerId(), entity.getTotalAmount(), items,entity.getCreatedAt());
+        BillDTO dto = new BillDTO(entity.getId(),entity.getCustomerId(), entity.getTotalAmount(), items,entity.getCreatedAt());
         dto.setCustomer(customerDTO); // <-- Set the full customer info
 
         return dto;
