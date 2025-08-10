@@ -13,18 +13,18 @@
     if (categories != null) {
         for (CategoryDTO c : categories) {
 %>
-<tr>
-    <td><%= c.getId() %></td>
-    <td><%= c.getName() %></td>
-    <td><%= c.getDescription() %></td>
-    <td>
-        <form action="manageCategory" method="post" style="display:inline;">
-            <input type="hidden" name="action" value="delete"/>
-            <input type="hidden" name="id" value="<%= c.getId() %>"/>
-            <button type="submit">Delete</button>
-        </form>
-    </td>
-</tr>
+<%--<tr>--%>
+<%--    <td><%= c.getId() %></td>--%>
+<%--    <td><%= c.getName() %></td>--%>
+<%--    <td><%= c.getDescription() %></td>--%>
+<%--    <td>--%>
+<%--        <form action="manageCategory" method="post" style="display:inline;">--%>
+<%--            <input type="hidden" name="action" value="delete"/>--%>
+<%--            <input type="hidden" name="id" value="<%= c.getId() %>"/>--%>
+<%--            <button type="submit">Delete</button>--%>
+<%--        </form>--%>
+<%--    </td>--%>
+<%--</tr>--%>
 <%
         }
     }
