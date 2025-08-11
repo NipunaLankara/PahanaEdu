@@ -19,7 +19,7 @@ window.onload = function() {
 function showPrintMessage() {
     // Create and show a temporary message
     const message = document.createElement('div');
-    message.innerHTML = '📄 Preparing your bill for printing...';
+    message.innerHTML = 'Preparing your bill for printing...';
     message.style.cssText = `
         position: fixed;
         top: 20px;
@@ -64,7 +64,7 @@ window.addEventListener('afterprint', function() {
 // Function to show completion message
 function showCompletionMessage() {
     const message = document.createElement('div');
-    message.innerHTML = '✅ Print ready! You can now close this window.';
+    message.innerHTML = 'Print ready! You can now close this window.';
     message.style.cssText = `
         position: fixed;
         top: 20px;
