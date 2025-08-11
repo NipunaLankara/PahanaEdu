@@ -1,4 +1,6 @@
-/* Reset and Base Styles */
+/* Simple Bills CSS - Blue Theme */
+
+/* Reset */
 * {
     margin: 0;
     padding: 0;
@@ -6,8 +8,8 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
     min-height: 100vh;
     color: #333;
     line-height: 1.6;
@@ -20,15 +22,13 @@ body {
     margin: 0 auto;
 }
 
-/* Header Styles */
+/* Header */
 .page-header {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     padding: 30px;
     margin-bottom: 30px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .header-content {
@@ -40,17 +40,17 @@ body {
 }
 
 .page-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #2d3748;
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
     display: flex;
     align-items: center;
     gap: 15px;
 }
 
 .page-title i {
-    color: #667eea;
-    font-size: 2.2rem;
+    color: #007bff;
+    font-size: 24px;
 }
 
 .header-stats {
@@ -60,15 +60,14 @@ body {
 }
 
 .bills-count {
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: #007bff;
     color: white;
     padding: 12px 20px;
-    border-radius: 25px;
-    font-weight: 600;
+    border-radius: 20px;
+    font-weight: bold;
     display: flex;
     align-items: center;
     gap: 8px;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
 
 /* Main Container */
@@ -79,28 +78,27 @@ body {
 /* Empty State */
 .empty-state {
     text-align: center;
-    padding: 80px 20px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    padding: 60px 20px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
 }
 
 .empty-icon {
-    font-size: 4rem;
-    color: #cbd5e0;
+    font-size: 48px;
+    color: #ccc;
     margin-bottom: 20px;
 }
 
 .empty-state h3 {
-    font-size: 1.8rem;
-    color: #2d3748;
+    font-size: 24px;
+    color: #333;
     margin-bottom: 10px;
 }
 
 .empty-state p {
-    color: #718096;
-    font-size: 1.1rem;
+    color: #666;
+    font-size: 16px;
     margin-bottom: 30px;
 }
 
@@ -108,19 +106,17 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: #007bff;
     color: white;
     padding: 15px 30px;
-    border-radius: 25px;
+    border-radius: 5px;
     text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    font-weight: bold;
+    transition: background-color 0.2s ease;
 }
 
 .cta-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    background: #0056b3;
 }
 
 /* Bills Grid */
@@ -132,24 +128,20 @@ body {
 
 /* Bill Card */
 .bill-card {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.3s ease;
-    position: relative;
+    transition: box-shadow 0.2s ease;
 }
 
 .bill-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* Bill Header */
 .bill-header {
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: #007bff;
     color: white;
     padding: 25px;
     display: flex;
@@ -166,15 +158,15 @@ body {
 }
 
 .bill-number {
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-size: 18px;
+    font-weight: bold;
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
 .bill-date {
-    font-size: 0.9rem;
+    font-size: 14px;
     opacity: 0.9;
     display: flex;
     align-items: center;
@@ -187,14 +179,14 @@ body {
 
 .total-label {
     display: block;
-    font-size: 0.9rem;
+    font-size: 14px;
     opacity: 0.9;
     margin-bottom: 5px;
 }
 
 .total-amount {
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-size: 20px;
+    font-weight: bold;
     display: block;
 }
 
@@ -209,24 +201,24 @@ body {
     align-items: center;
     margin-bottom: 20px;
     padding-bottom: 15px;
-    border-bottom: 2px solid #e2e8f0;
+    border-bottom: 2px solid #eee;
 }
 
 .items-header h4 {
-    font-size: 1.2rem;
-    color: #2d3748;
+    font-size: 18px;
+    color: #333;
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
 .items-count {
-    background: #e2e8f0;
-    color: #4a5568;
+    background: #e9ecef;
+    color: #666;
     padding: 5px 12px;
     border-radius: 15px;
-    font-size: 0.85rem;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 /* Items Container */
@@ -241,15 +233,14 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 15px;
-    background: #f7fafc;
-    border-radius: 12px;
-    border-left: 4px solid #667eea;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #007bff;
     transition: all 0.2s ease;
 }
 
 .item-row:hover {
-    background: #edf2f7;
-    transform: translateX(5px);
+    background: #e9ecef;
 }
 
 .item-details {
@@ -257,8 +248,8 @@ body {
 }
 
 .book-title {
-    font-weight: 600;
-    color: #2d3748;
+    font-weight: bold;
+    color: #333;
     margin-bottom: 5px;
     display: flex;
     align-items: center;
@@ -268,27 +259,27 @@ body {
 .item-meta {
     display: flex;
     gap: 15px;
-    font-size: 0.9rem;
-    color: #718096;
+    font-size: 14px;
+    color: #666;
 }
 
 .quantity {
-    background: #e2e8f0;
+    background: #e9ecef;
     padding: 2px 8px;
-    border-radius: 8px;
-    font-weight: 500;
+    border-radius: 4px;
+    font-weight: bold;
 }
 
 .item-subtotal {
-    font-weight: 700;
-    color: #2d3748;
-    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+    font-size: 16px;
 }
 
 /* Bill Actions */
 .bill-actions {
     padding: 20px 25px;
-    background: #f7fafc;
+    background: #f8f9fa;
     display: flex;
     gap: 15px;
     justify-content: center;
@@ -298,10 +289,10 @@ body {
     flex: 1;
     padding: 12px 20px;
     border: none;
-    border-radius: 10px;
-    font-weight: 600;
+    border-radius: 5px;
+    font-weight: bold;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -309,23 +300,21 @@ body {
 }
 
 .view-details {
-    background: #4299e1;
+    background: #007bff;
     color: white;
 }
 
 .view-details:hover {
-    background: #3182ce;
-    transform: translateY(-2px);
+    background: #0056b3;
 }
 
 .download-bill {
-    background: #48bb78;
+    background: #28a745;
     color: white;
 }
 
 .download-bill:hover {
-    background: #38a169;
-    transform: translateY(-2px);
+    background: #1e7e34;
 }
 
 /* Floating Summary */
@@ -333,12 +322,11 @@ body {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     min-width: 200px;
     z-index: 1000;
 }
@@ -356,35 +344,92 @@ body {
 }
 
 .summary-label {
-    color: #718096;
-    font-size: 0.9rem;
+    color: #666;
+    font-size: 14px;
 }
 
 .summary-value {
-    font-weight: 700;
-    color: #2d3748;
+    font-weight: bold;
+    color: #333;
 }
 
-/* Animations */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.summary-value.total {
+    color: #007bff;
+    font-size: 18px;
 }
 
-.bill-card {
-    animation: fadeInUp 0.6s ease forwards;
+/* Status Indicators */
+.status-paid {
+    background: #28a745;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
-.bill-card:nth-child(1) { animation-delay: 0.1s; }
-.bill-card:nth-child(2) { animation-delay: 0.2s; }
-.bill-card:nth-child(3) { animation-delay: 0.3s; }
-.bill-card:nth-child(4) { animation-delay: 0.4s; }
+.status-pending {
+    background: #ffc107;
+    color: #333;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.status-overdue {
+    background: #dc3545;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Search and Filter Bar */
+.filter-bar {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.search-input {
+    flex: 1;
+    min-width: 200px;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.filter-select {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    background: white;
+    cursor: pointer;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: #007bff;
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -393,7 +438,7 @@ body {
     }
 
     .page-title {
-        font-size: 2rem;
+        font-size: 24px;
     }
 
     .header-content {
@@ -428,8 +473,12 @@ body {
         gap: 10px;
     }
 
+    .item-meta {
+        justify-content: center;
+    }
+
     .action-btn {
-        font-size: 0.9rem;
+        font-size: 14px;
     }
 
     .floating-summary {
@@ -438,6 +487,15 @@ body {
         right: auto;
         margin-top: 30px;
         width: 100%;
+    }
+
+    .filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-input {
+        min-width: auto;
     }
 }
 
@@ -449,5 +507,30 @@ body {
     .item-meta {
         flex-direction: column;
         gap: 5px;
+    }
+
+    .bills-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Loading States */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, transparent 37%, #f0f0f0 63%);
+    background-size: 400% 100%;
+    animation: skeleton-loading 1.4s ease-in-out infinite;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 50%;
     }
 }

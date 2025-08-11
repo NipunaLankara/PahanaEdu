@@ -23,7 +23,7 @@
     <div class="dashboard-header">
         <div class="header-content">
             <div class="logo-section">
-                <h2>📚 Pahana Edu</h2>
+                <h2>Pahana Edu</h2>
             </div>
             <div class="user-section">
                 <div class="user-info-header">
@@ -46,10 +46,10 @@
             <h1 class="welcome-title">Welcome Back!</h1>
             <div class="user-info">
                 <div class="user-badge">
-                    📋 Account #<%= user.getId() %>
+                    Account #<%= user.getId() %>
                 </div>
                 <div class="user-badge">
-                    👋 Hello, <%= user.getName() != null ? user.getName() : "User" %>
+                    Hello, <%= user.getName() != null ? user.getName() : "User" %>
                 </div>
             </div>
         </div>
@@ -79,9 +79,7 @@
 
             <!-- Bills Card -->
             <div class="dashboard-card bills-card">
-                <div class="card-icon">
-                    🧾
-                </div>
+
                 <h3 class="card-title">My Bills</h3>
                 <p class="card-description">
                     Access your billing history, view past transactions, and download receipts.
@@ -108,19 +106,16 @@
             <h2 class="section-title">Quick Actions</h2>
             <div class="actions-grid">
                 <button class="quick-action-btn" onclick="showNotifications()">
-                    <span class="action-icon">🔔</span>
                     <span>Notifications</span>
                 </button>
                 <button class="quick-action-btn" onclick="window.location.href='<%= request.getContextPath() %>/customer/profile.jsp'">
-                    <span class="action-icon">⚙️</span>
                     <span>Settings</span>
                 </button>
                 <button class="quick-action-btn" onclick="window.location.href='<%= request.getContextPath() %>/customer/help.jsp'">
-                    <span class="action-icon">❓</span>
+
                     <span>Help</span>
                 </button>
                 <button class="quick-action-btn logout-quick-btn" onclick="confirmLogout(event)">
-                    <span class="action-icon">🚪</span>
                     <span>Logout</span>
                 </button>
             </div>
