@@ -26,11 +26,6 @@
     Email: <input type="email" name="email" value="<%= user.getEmail() %>" required><br>
     Contact: <input type="text" name="contact" value="<%= user.getContactNumber() %>" required><br>
     Address: <input type="text" name="address" value="<%= user.getAddress() %>" required><br>
-    Role:
-    <select name="role">
-        <option value="CUSTOMER" <%= "CUSTOMER".equals(user.getRole()) ? "selected" : "" %>>Customer</option>
-        <option value="ADMIN" <%= "ADMIN".equals(user.getRole()) ? "selected" : "" %>>Admin</option>
-    </select><br>
 
     <button type="submit">Update</button>
 </form>
