@@ -13,18 +13,6 @@
     if (categories != null) {
         for (CategoryDTO c : categories) {
 %>
-<%--<tr>--%>
-<%--    <td><%= c.getId() %></td>--%>
-<%--    <td><%= c.getName() %></td>--%>
-<%--    <td><%= c.getDescription() %></td>--%>
-<%--    <td>--%>
-<%--        <form action="manageCategory" method="post" style="display:inline;">--%>
-<%--            <input type="hidden" name="action" value="delete"/>--%>
-<%--            <input type="hidden" name="id" value="<%= c.getId() %>"/>--%>
-<%--            <button type="submit">Delete</button>--%>
-<%--        </form>--%>
-<%--    </td>--%>
-<%--</tr>--%>
 <%
         }
     }
@@ -48,7 +36,7 @@
 <form id="categoryForm" action="manageCategory" method="post">
     <input type="hidden" name="action" value="add"/>
     Name: <input type="text" id="name" name="name" required/>
-    Description: <input type="text" id="description" name="description"/>
+    Description: <input type="text" id="description" name="description" required/>
     <button type="submit">Add</button>
 </form>
 
@@ -82,7 +70,7 @@
             <form action="manageCategory" method="post" style="display:inline;">
                 <input type="hidden" name="action" value="delete"/>
                 <input type="hidden" name="id" value="<%= c.getId() %>"/>
-                <button type="submit">Delete</button>
+                <button class="delete-btn" type="submit">Delete</button>
             </form>
         </td>
     </tr>

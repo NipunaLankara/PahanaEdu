@@ -1,8 +1,10 @@
 <%@ page import="servlet.pahanaedu.bill.dto.BillDTO" %>
 <%@ page import="servlet.pahanaedu.bill.dto.BuyBookDTO" %>
 <%@ page import="servlet.pahanaedu.book.dto.BookDTO" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="servlet.pahanaedu.user.dto.UserDTO" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page session="true" %>
+
 <%
   BillDTO bill = (BillDTO) request.getAttribute("bill");
   if (bill == null) return;
@@ -10,30 +12,48 @@
   UserDTO customer = bill.getCustomer();
 %>
 
-<h2>📚 Pahana Book Shop - Bill</h2>
-<hr>
-<p><strong>Customer ID:</strong> <%= customer.getId() %></p>
-<p><strong>Name:</strong> <%= customer.getName() %></p>
-<p><strong>Email:</strong> <%= customer.getEmail() %></p>
-<p><strong>Contact Number:</strong> <%= customer.getContactNumber() %></p>
-
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
   <title>Print Bill</title>
+
+  <!-- Main Styles -->
   <link rel="stylesheet" href="css/print.css">
-  <script>
-    window.onload = function () {
-      window.print(); // Automatically opens print dialog
+  <link rel="stylesheet" href="../css/header.css">
+
+  <!-- Print-specific styles -->
+  <style>
+    @media print {
+      /* Hide navbar & menu icon in print */
+      header, .navbar, .menu-icon {
+        display: none !important;
+      }
+      body {
+        background: white !important;
+        color: black !important;
+      }
+      .bill-container {
+        margin-top: 0; /* Adjust since header is hidden */
+      }
     }
-  </script>
+  </style>
+
+  <script src="js/print.js" defer></script>
 </head>
 <body>
-<div class="bill-container">
 
+<!-- Include header -->
+<jsp:include page="headerForAdmin.jsp" />
+
+<div class="bill-container">
+  <h2>Pahana Book Shop - Bill</h2>
   <hr>
-  <p><strong>Customer ID:</strong> <%= bill.getCustomerId() %></p>
+  <p><strong>Customer ID:</strong> <%= customer.getId() %></p>
+  <p><strong>Name:</strong> <%= customer.getName() %></p>
+  <p><strong>Email:</strong> <%= customer.getEmail() %></p>
+  <p><strong>Contact Number:</strong> <%= customer.getContactNumber() %></p>
+
   <table border="1" width="100%" cellpadding="10" cellspacing="0">
     <thead>
     <tr>
@@ -52,17 +72,15 @@
     <tr>
       <td><%= book.getTitle() %></td>
       <td><%= book.getAuthor() %></td>
-      <td><%= item.getPrice() %></td>
+      <td>Rs. <%= item.getPrice() %></td>
       <td><%= item.getQuantity() %></td>
-      <td><%= subtotal %></td>
+      <td>Rs. <%= subtotal %></td>
     </tr>
     <% } %>
     </tbody>
   </table>
   <h3 style="text-align: right;">Total: Rs. <%= bill.getTotalAmount() %></h3>
 </div>
+
 </body>
-
 </html>
-
-<script src="js/print.js"></script>

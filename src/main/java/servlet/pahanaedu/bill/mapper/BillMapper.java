@@ -35,19 +35,6 @@ public class BillMapper {
         return bill;
     }
 
-//    public static BillDTO toDTO(Bill entity) {
-//        List<BuyBookDTO> items = new ArrayList<>();
-//        BookDAO bookDAO = new BookDAO();
-//
-//        for (BuyBook item : entity.getBuyBooks()) {
-//            Book book = bookDAO.getBookById(item.getBookId());
-//            BookDTO bookDTO = new BookDTO(book.getId(), book.getTitle(), book.getAuthor(), book.getPrice(), book.getQuantity(), book.getCategoryId());
-//            items.add(new BuyBookDTO(bookDTO, item.getQuantity(), item.getPrice()));
-//        }
-//
-//        return new BillDTO(entity.getCustomerId(), entity.getTotalAmount(), items);
-//    }
-
 
     public static BillDTO toDTO(Bill entity) {
         List<BuyBookDTO> items = new ArrayList<>();
