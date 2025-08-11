@@ -42,7 +42,7 @@
         <div class="dashboard-cards">
             <div class="card" onclick="location.href='customers.jsp'">
                 <div class="card-header">
-                    <div class="card-icon customers">👥</div>
+
                     <div>
                         <div class="card-title">Customers</div>
                         <div class="card-subtitle">Total registered users</div>
@@ -56,7 +56,7 @@
 
             <div class="card" onclick="location.href='manageCategory'">
                 <div class="card-header">
-                    <div class="card-icon categories">📂</div>
+
                     <div>
                         <div class="card-title">Categories</div>
                         <div class="card-subtitle">Book categories</div>
@@ -70,7 +70,6 @@
 
             <div class="card" onclick="location.href='manageBook'">
                 <div class="card-header">
-                    <div class="card-icon books">📚</div>
                     <div>
                         <div class="card-title">Books</div>
                         <div class="card-subtitle">Total inventory</div>
@@ -103,8 +102,8 @@
             <div class="action-buttons">
                 <a href="addCustomer.jsp" class="action-btn">Add New Customer</a>
                 <a href="customers.jsp" class="action-btn">Manage Customer</a>
-                <a href="manageCategory" class="action-btn">Add New Category</a>
-                <a href="manageBook" class="action-btn">Add New Book</a>
+                <a href="manageCategory" class="action-btn">Manage Category</a>
+                <a href="manageBook" class="action-btn">Manage Book</a>
                 <a href="bill" class="action-btn">Create Bill</a>
                 <a href="bills" class="action-btn">View All Bills</a>
 
