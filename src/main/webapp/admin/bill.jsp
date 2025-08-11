@@ -20,9 +20,12 @@
     <title>Create Bill</title>
     <link rel="stylesheet" href="css/bill.css">
 </head>
+
+<!-- Include header -->
+<jsp:include page="headerForAdmin.jsp" />
 <body>
 <div class="container">
-    <h2>🧾 Create / Confirm Bill</h2>
+    <h2>Create / Confirm Bill</h2>
 
     <% if (message != null) { %>
     <div class="message"><%= message %>
@@ -47,7 +50,7 @@
 
         <% if (customerEmail != null && error == null) { %>
         <div class="section">
-            <label><strong>Book Items:</strong></label>
+
             <div id="bookInputs">
                 <% if (buyBookList == null) { %>
                 <div class="form-row">
@@ -197,41 +200,6 @@
         document.getElementById('billForm').submit();
     }
 </script>
-
-<%--<script>--%>
-<%--    function setAction(actionValue) {--%>
-<%--        document.getElementById('actionInput').value = actionValue;--%>
-<%--    }--%>
-
-<%--    function addBookInput() {--%>
-<%--        const container = document.getElementById("bookInputs");--%>
-<%--        const div = document.createElement("div");--%>
-<%--        div.className = "form-row";--%>
-<%--        div.innerHTML = `--%>
-<%--<select name="bookId" required>--%>
-<%--    <option value="">-- Select Book --</option>--%>
-<%--    <% if (bookList != null) {--%>
-<%--     for (BookDTO book : bookList) { %>--%>
-<%--    <option value="<%= book.getId() %>">--%>
-<%--        <%= book.getTitle() %> by <%= book.getAuthor() %> (Rs. <%= book.getPrice() %>)--%>
-<%--    </option>--%>
-<%--<%  }--%>
-<%--   } else { %>--%>
-<%--    <option disabled>No books available</option>--%>
-<%--<% } %>--%>
-
-<%--</select>--%>
-<%--<input type="number" name="quantity" placeholder="Quantity" required min="1" />--%>
-<%--`;--%>
-<%--        container.appendChild(div);--%>
-<%--    }--%>
-
-<%--    function submitForm(action) {--%>
-<%--        document.getElementById('actionInput').value = action;--%>
-<%--        document.getElementById('billForm').submit();--%>
-<%--    }--%>
-
-<%--</script>--%>
 
 
 </body>

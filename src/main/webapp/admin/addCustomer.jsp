@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="css/addCustomer.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
+
+<jsp:include page="headerForAdmin.jsp" />
 <body>
 <div class="container">
     <div class="form-wrapper">
@@ -18,6 +20,12 @@
         </div>
 
         <form id="customerForm" action="addCustomer" method="post">
+            <% String errorMessage = (String) request.getAttribute("errorMessage"); %>
+            <% if (errorMessage != null) { %>
+            <div style="color: red; margin-bottom: 15px; text-align: center;">
+                <%= errorMessage %>
+            </div>
+            <% } %>
             <div class="form-group">
                 <label for="name">
                     <i class="fas fa-user"></i>
@@ -117,3 +125,28 @@
 <script src="js/addCustomer.js"></script>
 </body>
 </html>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('success') === '1') {
+        // Show a styled toast message
+        const toast = document.createElement("div");
+        toast.textContent = "Customer Registered Successfully";
+        toast.style.position = "fixed";
+        toast.style.top = "20px";
+        toast.style.right = "20px";
+        toast.style.background = "#4CAF50";
+        toast.style.color = "white";
+        toast.style.padding = "12px 20px";
+        toast.style.borderRadius = "6px";
+        toast.style.boxShadow = "0 2px 6px rgba(0,0,0,0.2)";
+        toast.style.zIndex = "1000";
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+            toast.style.transition = "opacity 0.5s ease";
+            toast.style.opacity = "0";
+            setTimeout(() => toast.remove(), 500);
+        }, 3000);
+    }
+</script>

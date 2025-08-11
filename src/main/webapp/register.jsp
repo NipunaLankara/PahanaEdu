@@ -55,6 +55,5 @@
         <p>Already have an account? <a href="login.jsp">Login</a></p>
     </div>
 </div>
-</div>
 </body>
 </html>
