@@ -16,7 +16,6 @@
         <div class="form-header">
             <i class="fas fa-user-plus"></i>
             <h2>Add New Customer</h2>
-            <p class="subtitle">Admin Panel</p>
         </div>
 
         <form id="customerForm" action="addCustomer" method="post">
