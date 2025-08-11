@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title>Pahana Edu Bookshop</title>
     <link rel="stylesheet" href="css/home.css">
-    <script src="js/home.js" defer></script>
+
 </head>
 <body>
 
@@ -47,3 +47,10 @@
 
 </body>
 </html>
+
+<script>
+    function toggleMenu() {
+        const navLinks = document.getElementById("nav-links");
+        navLinks.classList.toggle("active");
+    }
+</script>

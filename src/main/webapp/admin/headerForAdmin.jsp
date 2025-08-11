@@ -2,14 +2,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <link rel="stylesheet" href="../css/header.css">
-<script src="../js/home.js" defer></script>
+
 
 
 <header>
     <nav class="navbar">
-        <div class="logo">📚 Pahana Edu</div>
+        <div class="logo">Pahana Edu</div>
         <ul class="nav-links" id="nav-links">
             <li><a href="../index.jsp">Home</a></li>
+            <li><a href="adminDashboard.jsp">Admin Dashboard</a></li>
             <li><a href="../register.jsp">Register</a></li>
         </ul>
 
@@ -31,3 +32,11 @@
         <div class="menu-icon" onclick="toggleMenu()">☰</div>
     </nav>
 </header>
+
+<script>
+    function toggleMenu() {
+        const navLinks = document.getElementById("nav-links");
+        navLinks.classList.toggle("active");
+    }
+</script>
+

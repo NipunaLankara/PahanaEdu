@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <link rel="stylesheet" href="css/register.css">
-    <script src="js/register.js"></script>
+
 
 </head>
 
@@ -54,7 +54,6 @@
     <div class="footer">
         <p>Already have an account? <a href="login.jsp">Login</a></p>
     </div>
-</div>
 </div>
 </body>
 </html>

@@ -1,46 +1,212 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
     padding: 20px;
+    min-height: 100vh;
 }
 
 h2 {
     text-align: center;
-    color: #333;
+    color: #1e40af;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+    text-shadow: 0 2px 4px rgba(30, 64, 175, 0.1);
 }
 
 .customer-table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #fff;
+    background-color: #ffffff;
     margin-top: 20px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px rgba(30, 64, 175, 0.12);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(59, 130, 246, 0.1);
 }
 
 .customer-table th,
 .customer-table td {
-    padding: 12px;
+    padding: 16px 20px;
     text-align: left;
-    border: 1px solid #ddd;
+    border-bottom: 1px solid #e2e8f0;
+    transition: all 0.2s ease;
 }
 
 .customer-table th {
-    background-color: #009879;
-    color: #fff;
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: none;
 }
 
-.edit-btn, .delete-btn {
-    color: #0066cc;
+.customer-table tbody tr {
+    transition: all 0.3s ease;
+}
+
+.customer-table tbody tr:hover {
+    background-color: #f8fafc;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.05);
+}
+
+.customer-table tbody tr:nth-child(even) {
+    background-color: #f9fafb;
+}
+
+.customer-table tbody tr:nth-child(even):hover {
+    background-color: #f1f5f9;
+}
+
+.customer-table td {
+    color: #334155;
+    font-size: 0.95rem;
+}
+
+.edit-btn,
+.delete-btn {
+    display: inline-block;
     text-decoration: none;
-    padding: 5px 10px;
-    border-radius: 3px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin: 0 4px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.edit-btn {
+    color: #1d4ed8;
+    background-color: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.2);
 }
 
 .edit-btn:hover {
-    background-color: #e7f3ff;
+    background-color: #3b82f6;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.delete-btn {
+    color: #dc2626;
+    background-color: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
 }
 
 .delete-btn:hover {
-    background-color: #ffe7e7;
-    color: red;
+    background-color: #ef4444;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+/* Additional enhancements */
+.customer-table thead th:first-child {
+    border-top-left-radius: 12px;
+}
+
+.customer-table thead th:last-child {
+    border-top-right-radius: 12px;
+}
+
+.customer-table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 12px;
+}
+
+.customer-table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 12px;
+}
+
+.customer-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Action column styling */
+.actions-column {
+    text-align: center;
+    min-width: 150px;
+}
+
+/* Loading state for buttons */
+.edit-btn.loading,
+.delete-btn.loading {
+    opacity: 0.6;
+    pointer-events: none;
+    position: relative;
+}
+
+.edit-btn.loading::after,
+.delete-btn.loading::after {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+@keyframes spin {
+    to {
+        transform: translateY(-50%) rotate(360deg);
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+
+    .customer-table {
+        font-size: 0.85rem;
+        margin-top: 10px;
+    }
+
+    .customer-table th,
+    .customer-table td {
+        padding: 10px 12px;
+    }
+
+    .edit-btn,
+    .delete-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+        margin: 2px;
+    }
+}
+
+@media (max-width: 480px) {
+    .customer-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .customer-table th,
+    .customer-table td {
+        padding: 8px 10px;
+    }
+
+    .edit-btn,
+    .delete-btn {
+        display: block;
+        margin: 2px 0;
+        text-align: center;
+    }
 }
