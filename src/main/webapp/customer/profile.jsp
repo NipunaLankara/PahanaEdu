@@ -20,11 +20,10 @@
 <div class="profile-header">
   <div class="header-content">
     <div class="breadcrumb">
-      <a href="<%= request.getContextPath() %>/customer/dashboard.jsp" class="breadcrumb-link">
-        <span class="breadcrumb-icon">🏠</span>
+      <a href="<%= request.getContextPath() %>/customer/customer-dashboard.jsp" class="breadcrumb-link">
+        <span class="breadcrumb-icon"></span>
         <span>Dashboard</span>
       </a>
-      <span class="breadcrumb-separator">›</span>
       <span class="breadcrumb-current">Edit Profile</span>
     </div>
     <div class="user-info">
@@ -45,7 +44,6 @@
     <!-- Card Header -->
     <div class="card-header">
       <div class="header-icon">
-        <span class="icon">👤</span>
       </div>
       <div class="header-text">
         <h2 class="card-title">Edit Profile</h2>
@@ -83,7 +81,6 @@
                    required
                    placeholder="Enter your full name"
                    data-tooltip="Enter your complete legal name" />
-            <div class="input-icon">👤</div>
             <div class="validation-message" id="nameError"></div>
           </div>
         </div>

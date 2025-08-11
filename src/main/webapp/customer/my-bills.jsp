@@ -41,10 +41,6 @@
             </div>
             <h3>No Bills Found</h3>
             <p>You haven't made any purchases yet.</p>
-            <a href="books.jsp" class="cta-button">
-                <i class="fas fa-book"></i>
-                Browse Books
-            </a>
         </div>
         <% } else { %>
         <div class="bills-grid">
