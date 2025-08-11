@@ -29,7 +29,6 @@ public class UpdateCustomer extends HttpServlet {
             String email = request.getParameter("email");
             String contact = request.getParameter("contact");
             String address = request.getParameter("address");
-            String role = request.getParameter("role");
 
             UserDTO userDTO = new UserDTO();
             userDTO.setId(id);
@@ -38,7 +37,7 @@ public class UpdateCustomer extends HttpServlet {
             userDTO.setEmail(email);
             userDTO.setContactNumber(contact);
             userDTO.setAddress(address);
-            userDTO.setRole(role);
+
 
             userService.updateUser(userDTO);
             response.sendRedirect("customers"); // redirect to list page
