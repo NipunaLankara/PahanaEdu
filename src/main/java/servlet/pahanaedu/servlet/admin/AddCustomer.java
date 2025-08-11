@@ -27,6 +27,7 @@ public class AddCustomer extends HttpServlet {
         String confirmPassword = request.getParameter("confirmPassword");
 
         String errorMessage = validateCustomer(name, address, email, nic, contactNumber, password, confirmPassword);
+//        String errorMessage = null;
 
         if (errorMessage == null) {
             try {
