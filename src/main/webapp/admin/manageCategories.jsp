@@ -70,7 +70,7 @@
             <form action="manageCategory" method="post" style="display:inline;">
                 <input type="hidden" name="action" value="delete"/>
                 <input type="hidden" name="id" value="<%= c.getId() %>"/>
-                <button class="btn-danger" type="submit">Delete</button>
+                <button class="delete-btn" type="submit">Delete</button>
             </form>
         </td>
     </tr>

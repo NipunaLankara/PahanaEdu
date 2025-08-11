@@ -16,38 +16,55 @@ public class RegisterServlet extends HttpServlet {
     private final UserService userService = new UserService();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserDTO dto = new UserDTO(
-                request.getParameter("name"),
-                request.getParameter("address"),
-                request.getParameter("email"),
-                request.getParameter("nic"),
-                request.getParameter("phoneNumber"),
-                request.getParameter("password"),
-                request.getParameter("confirmPassword")
-        );
+
+        String name = request.getParameter("name").trim();
+        String address = request.getParameter("address").trim();
+        String email = request.getParameter("email").trim();
+        String nic = request.getParameter("nic").trim();
+        String contactNumber = request.getParameter("phoneNumber").trim();
+        String password = request.getParameter("password");
+        String confirmPassword = request.getParameter("confirmPassword");
 
         String errorMessage = null;
 
-        if (dto.getName().isEmpty() || dto.getAddress().isEmpty() || dto.getEmail().isEmpty() ||
-                dto.getNic().isEmpty() || dto.getContactNumber().isEmpty() ||
-                dto.getPassword().isEmpty() || dto.getConfirmPassword().isEmpty()) {
-
-            errorMessage = "All fields are required.";
-
-        } else if (!dto.getPassword().equals(dto.getConfirmPassword())) {
+        // Name validation
+        if (name.isEmpty() || !name.matches("^[A-Za-z ]{3,}$")) {
+            errorMessage = "Name must be at least 3 letters and contain only alphabets.";
+        }
+        // Address validation
+        else if (address.isEmpty() || address.length() < 5) {
+            errorMessage = "Address must be at least 5 characters long.";
+        }
+        // Email validation
+        else if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
+            errorMessage = "Invalid email format.";
+        }
+        // NIC validation (supports old and new formats)
+        else if (!nic.matches("^[0-9]{9}[VvXx]$") && !nic.matches("^[0-9]{12}$")) {
+            errorMessage = "Invalid NIC format.";
+        }
+        // Phone number validation
+        else if (!contactNumber.matches("^0[0-9]{9}$")) {
+            errorMessage = "Contact number must be 10 digits and start with 0.";
+        }
+        // Password match check
+        else if (!password.equals(confirmPassword)) {
             errorMessage = "Passwords do not match.";
-
-        } else if (dto.getPassword().length() < 5) {
-            errorMessage = "Password must be at least 5 characters long.";
-
-        } else {
+        }
+        // Password strength check
+        else if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!]).{5,}$")) {
+            errorMessage = "Password must be at least 5 characters and include upper, lower, number, and special character.";
+        }
+        // Database checks
+        else {
             try {
-                if (userService.checkEmail(dto.getEmail())) {
+                if (userService.checkEmail(email)) {
                     errorMessage = "Email is already registered.";
-                } else if (userService.checkPhoneNumber(dto.getContactNumber())) {
+                } else if (userService.checkPhoneNumber(contactNumber)) {
                     errorMessage = "Phone number is already registered.";
                 } else {
-                    userService.registerNewUser(dto); // standard registration
+                    UserDTO newCustomer = new UserDTO(name, address, email, nic, contactNumber, password, confirmPassword);
+                    userService.registerNewUser(newCustomer);
                     response.sendRedirect("login.jsp");
                     return;
                 }

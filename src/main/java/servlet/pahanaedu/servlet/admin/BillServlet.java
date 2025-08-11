@@ -83,6 +83,12 @@ public class BillServlet extends HttpServlet {
 
             if (book == null) continue;
 
+            if (book.getQuantity() ==0) {
+                stockErrors.add("Out of Stock for book: " + book.getTitle());
+                continue;
+
+            }
+
             if (qty > book.getQuantity()) {
                 stockErrors.add("Only " + book.getQuantity() + " copies available for book: " + book.getTitle());
                 continue;
