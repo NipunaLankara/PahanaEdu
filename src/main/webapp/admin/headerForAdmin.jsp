@@ -11,7 +11,7 @@
         <ul class="nav-links" id="nav-links">
             <li><a href="../index.jsp">Home</a></li>
             <li><a href="adminDashboard.jsp">Admin Dashboard</a></li>
-
+<%--            <li><a href="../register.jsp">Register</a></li>--%>
         </ul>
 
         <%
