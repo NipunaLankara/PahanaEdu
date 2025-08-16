@@ -38,11 +38,18 @@ public class UpdateCustomer extends HttpServlet {
             userDTO.setContactNumber(contact);
             userDTO.setAddress(address);
 
+            boolean updated = userService.updateUser(userDTO);
 
-            userService.updateUser(userDTO);
-            response.sendRedirect("customers"); // redirect to list page
+            if (updated) {
+                response.sendRedirect("customers?success=Customer+updated+successfully");
+            } else {
+                response.sendRedirect("customers?error=Update+failed.+Please+try+again.");
+            }
+
         } catch (SQLException e) {
-            throw new ServletException("Error updating user", e);
+            e.printStackTrace();
+            response.sendRedirect("customers?error=Database+error+while+updating+customer");
         }
     }
 }
+
