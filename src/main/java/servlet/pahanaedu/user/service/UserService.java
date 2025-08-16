@@ -75,9 +75,9 @@ public class UserService {
         return null;
     }
 
-    public void updateUser(UserDTO userDTO) throws SQLException {
+    public boolean updateUser(UserDTO userDTO) throws SQLException {
         User user = UserMapper.toEntity(userDTO);
-        userDAO.update(user);
+        return userDAO.update(user);
     }
 
     public void deleteUserById(String id) throws SQLException {

@@ -3,6 +3,18 @@
 
 
 <!DOCTYPE html>
+<%
+    String successMsg = request.getParameter("success");
+    String errorMsg = request.getParameter("error");
+%>
+
+<% if (successMsg != null) { %>
+<div class="alert success"><%= successMsg %></div>
+<% } %>
+
+<% if (errorMsg != null) { %>
+<div class="alert error"><%= errorMsg %></div>
+<% } %>
 
 
 <html>
