@@ -81,20 +81,23 @@ public class UserDAO {
         }
     }
 
-    public void update(User user) throws SQLException {
+    public boolean update(User user) throws SQLException {
+        String sql = "UPDATE user SET name=?, address=?, email=?, nic=?, contact_number=? WHERE id=?";
         try (Connection conn = DBConnection.getInstance().getConnection();
-             PreparedStatement stmt = conn.prepareStatement(
-                     "UPDATE user SET name=?, address=?, email=?, nic=?, contact_number=?, role=? WHERE id=?")) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
             stmt.setString(1, user.getName());
             stmt.setString(2, user.getAddress());
             stmt.setString(3, user.getEmail());
             stmt.setString(4, user.getNic());
             stmt.setString(5, user.getContactNumber());
-            stmt.setString(6, user.getRole());
-            stmt.setString(7, user.getId());
-            stmt.executeUpdate();
+            stmt.setString(6, user.getId());
+
+            int rows = stmt.executeUpdate();
+            return rows > 0;  // ✅ true if at least one row updated
         }
     }
+
 
     public void delete(String id) throws SQLException {
         try (Connection conn = DBConnection.getInstance().getConnection();
