@@ -5,8 +5,8 @@ import servlet.pahanaedu.bill.model.BuyBook;
 import servlet.persistence.db.DBConnection;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Date;
+import java.util.*;
 
 
 public class BillDAO {
@@ -175,6 +175,63 @@ public class BillDAO {
     }
 
 
+    // Daily Sales
+    public List<Object[]> getDailySales() throws SQLException {
+        String sql = "SELECT DATE(created_at) as day, SUM(total_amount) as total " +
+                "FROM bill GROUP BY DATE(created_at) ORDER BY day DESC";
+        List<Object[]> result = new ArrayList<>();
+        try (Connection conn = DBConnection.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                result.add(new Object[]{rs.getDate("day"), rs.getDouble("total")});
+            }
+        }
+        return result;
+    }
+
+    // Top Selling Books
+    public List<Object[]> getTopSellingBooks() throws SQLException {
+        String sql = "SELECT b.title, SUM(bb.quantity) as sold " +
+                "FROM buy_books bb JOIN book b ON bb.book_id = b.id " +
+                "GROUP BY b.title ORDER BY sold DESC LIMIT 5";
+        List<Object[]> result = new ArrayList<>();
+        try (Connection conn = DBConnection.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                result.add(new Object[]{rs.getString("title"), rs.getInt("sold")});
+            }
+        }
+        return result;
+    }
+
+    // Top Customers
+    public List<Object[]> getTopCustomers() throws SQLException {
+        String sql = "SELECT u.email, SUM(b.total_amount) AS spent " +
+                "FROM bill b " +
+                "INNER JOIN user u ON b.customer_id = u.id " +
+                "WHERE b.customer_id IS NOT NULL " +
+                "GROUP BY u.email " +
+                "ORDER BY spent DESC " +
+                "LIMIT 5";
+
+        List<Object[]> result = new ArrayList<>();
+        try (Connection conn = DBConnection.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                String email = rs.getString("email");
+                double spent = rs.getDouble("spent");
+                result.add(new Object[]{email, spent});
+            }
+        }
+        return result;
+    }
 
 
 }
+
+
+

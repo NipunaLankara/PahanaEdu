@@ -1,4 +1,4 @@
-/* Bills Display Stylesheet */
+/* Simple Blue Bills Display Stylesheet */
 
 * {
     margin: 0;
@@ -8,51 +8,40 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #f0f7ff;
     min-height: 100vh;
     padding: 20px;
     color: #333;
 }
 
 .bills-container {
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     padding: 30px;
 }
 
 .page-title {
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     margin-bottom: 30px;
-    background: linear-gradient(45deg, #667eea, #764ba2);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-weight: 700;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #2a5298;
+    font-weight: 600;
 }
 
 .bill-card {
-    background: #ffffff;
-    border-radius: 15px;
-    margin-bottom: 25px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     overflow: hidden;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(102, 126, 234, 0.1);
-}
-
-.bill-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    border: 1px solid #e6f3ff;
 }
 
 .bill-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #2a5298;
     color: white;
     padding: 20px 25px;
     display: flex;
@@ -75,9 +64,8 @@ body {
 }
 
 .total-amount {
-    font-size: 1.8rem;
-    font-weight: 700;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-size: 1.6rem;
+    font-weight: 600;
 }
 
 .customer-info {
@@ -113,34 +101,32 @@ body {
 }
 
 .items-table thead tr {
-    background: linear-gradient(135deg, #f8f9ff 0%, #e6eaff 100%);
+    background: #f8fbff;
 }
 
 .items-table th {
     padding: 15px 20px;
     text-align: left;
     font-weight: 600;
-    color: #4a5568;
+    color: #2a5298;
     font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    border-bottom: 2px solid #667eea;
+    border-bottom: 2px solid #4a90e2;
 }
 
 .items-table td {
     padding: 15px 20px;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid #f0f7ff;
     font-size: 0.95rem;
-    transition: background-color 0.2s ease;
+    color: #333;
 }
 
 .item-row:hover {
-    background-color: #f7fafc;
+    background-color: #f8fbff;
 }
 
 .book-title {
-    font-weight: 600;
-    color: #2d3748;
+    font-weight: 500;
+    color: #333;
     max-width: 300px;
     word-wrap: break-word;
 }
@@ -148,24 +134,24 @@ body {
 .quantity {
     text-align: center;
     font-weight: 600;
-    color: #667eea;
-    background: rgba(102, 126, 234, 0.1);
-    border-radius: 20px;
+    color: #2a5298;
+    background: #f0f7ff;
+    border-radius: 6px;
     width: fit-content;
-    padding: 5px 12px;
+    padding: 4px 10px;
     margin: 0 auto;
 }
 
 .unit-price, .subtotal {
     font-weight: 600;
-    color: #38a169;
+    color: #2a5298;
     text-align: right;
 }
 
 .subtotal {
-    background: rgba(56, 161, 105, 0.1);
-    border-radius: 8px;
-    padding: 8px 12px;
+    background: #f0f7ff;
+    border-radius: 6px;
+    padding: 6px 10px;
 }
 
 /* Responsive Design */
@@ -179,7 +165,7 @@ body {
     }
 
     .page-title {
-        font-size: 2rem;
+        font-size: 1.8rem;
         margin-bottom: 20px;
     }
 
@@ -199,7 +185,7 @@ body {
 
     .items-table th,
     .items-table td {
-        padding: 10px 8px;
+        padding: 12px 10px;
     }
 
     .book-title {
@@ -208,19 +194,23 @@ body {
     }
 
     .total-amount {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
     }
 }
 
 @media (max-width: 480px) {
+    .bills-container {
+        padding: 15px;
+    }
+
     .page-title {
-        font-size: 1.7rem;
+        font-size: 1.5rem;
     }
 
     .items-table th,
     .items-table td {
-        padding: 8px 5px;
-        font-size: 0.75rem;
+        padding: 10px 8px;
+        font-size: 0.8rem;
     }
 
     .bill-header {
@@ -228,23 +218,11 @@ body {
     }
 
     .total-amount {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
-}
 
-/* Loading Animation */
-.bill-card {
-    animation: slideInUp 0.6s ease-out;
-}
-
-@keyframes slideInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    .book-title {
+        max-width: 120px;
     }
 }
 
@@ -263,8 +241,7 @@ body {
     .bill-card {
         box-shadow: none;
         border: 1px solid #ddd;
-        break-inside: avoid;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
 
     .bill-header {
