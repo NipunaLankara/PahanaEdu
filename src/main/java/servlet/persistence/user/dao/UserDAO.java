@@ -99,13 +99,16 @@ public class UserDAO {
     }
 
 
-    public void delete(String id) throws SQLException {
+    public boolean delete(String id) throws SQLException {
+        String sql = "DELETE FROM user WHERE id = ?";
         try (Connection conn = DBConnection.getInstance().getConnection();
-             PreparedStatement stmt = conn.prepareStatement("DELETE FROM user WHERE id = ?")) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, id);
-            stmt.executeUpdate();
+            int rows = stmt.executeUpdate();
+            return rows > 0; // ✅ true if a row was actually deleted
         }
     }
+
 
     public String getCustomerIdByEmail(String email) {
         String sql = "SELECT id FROM user WHERE email = ?";
