@@ -1,4 +1,4 @@
-/* Modern Bill Page Styling */
+/* Simple Blue Theme Bill Page */
 * {
     margin: 0;
     padding: 0;
@@ -7,86 +7,59 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #f0f7ff;
     min-height: 100vh;
     padding: 20px;
     color: #333;
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 900px;
     margin: 0 auto;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    padding: 40px;
-    animation: slideUp 0.6s ease-out;
-}
-
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
 }
 
 h2 {
     text-align: center;
-    color: #2c3e50;
+    color: #2a5298;
     margin-bottom: 30px;
-    font-size: 2.5rem;
-    font-weight: 700;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    background: linear-gradient(45deg, #667eea, #764ba2);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-size: 2.2rem;
+    font-weight: 600;
 }
 
 .section {
-    margin-bottom: 35px;
-    padding: 25px;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-}
-
-.section:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #f8fbff;
+    border-radius: 8px;
+    border-left: 4px solid #4a90e2;
 }
 
 label {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     font-weight: 600;
-    color: #34495e;
-    font-size: 1.1rem;
+    color: #2a5298;
+    font-size: 1rem;
 }
 
 input[type="email"], input[type="number"] {
     width: 100%;
-    padding: 15px 20px;
-    border: 2px solid #e8f4fd;
-    border-radius: 12px;
+    padding: 12px 16px;
+    border: 2px solid #e6f3ff;
+    border-radius: 8px;
     font-size: 16px;
-    transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(5px);
+    transition: border-color 0.3s ease;
+    background: white;
+    color: #333;
 }
 
 input[type="email"]:focus, input[type="number"]:focus {
     outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 20px rgba(102, 126, 234, 0.2);
-    transform: translateY(-1px);
+    border-color: #4a90e2;
 }
 
 .form-row {
@@ -101,92 +74,68 @@ input[type="email"]:focus, input[type="number"]:focus {
 }
 
 .btn {
-    padding: 15px 30px;
+    padding: 12px 24px;
     border: none;
-    border-radius: 12px;
+    border-radius: 8px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    position: relative;
-    overflow: hidden;
-}
-
-.btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
-}
-
-.btn:hover::before {
-    left: 100%;
 }
 
 .add-btn {
-    background: linear-gradient(45deg, #28a745, #20c997);
+    background: #4a90e2;
     color: white;
-    box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
     margin-top: 15px;
 }
 
 .add-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 25px rgba(40, 167, 69, 0.4);
+    background: #2a5298;
 }
 
 .submit-btn {
-    background: linear-gradient(45deg, #007bff, #0056b3);
+    background: #2a5298;
     color: white;
-    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3);
     width: 100%;
     font-size: 18px;
+    margin-top: 20px;
 }
 
 .submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 25px rgba(0, 123, 255, 0.4);
+    background: #1e3c72;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 15px;
+    background: white;
+    border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e6f3ff;
 }
 
 thead {
-    background: linear-gradient(45deg, #667eea, #764ba2);
+    background: #2a5298;
 }
 
 th {
-    padding: 20px 15px;
+    padding: 16px 12px;
     text-align: center;
     color: white;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
     font-size: 14px;
 }
 
 td {
-    padding: 18px 15px;
+    padding: 14px 12px;
     text-align: center;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    transition: background-color 0.3s ease;
+    border-bottom: 1px solid #f0f7ff;
+    color: #333;
 }
 
 tbody tr:hover {
-    background-color: rgba(102, 126, 234, 0.05);
+    background-color: #f8fbff;
 }
 
 tbody tr:last-child td {
@@ -194,59 +143,77 @@ tbody tr:last-child td {
 }
 
 .error {
-    color: #e74c3c;
-    background: rgba(231, 76, 60, 0.1);
+    color: #c62d42;
+    background: #fdf2f3;
     padding: 15px;
-    border-radius: 10px;
-    border-left: 4px solid #e74c3c;
+    border-radius: 8px;
+    border: 1px solid #f5c6cb;
     margin-bottom: 20px;
     font-weight: 500;
-    animation: shake 0.5s ease-in-out;
-}
-
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
 }
 
 .message {
-    color: #27ae60;
-    background: rgba(39, 174, 96, 0.1);
+    color: #2a5298;
+    background: #f0f7ff;
     padding: 15px;
-    border-radius: 10px;
-    border-left: 4px solid #27ae60;
+    border-radius: 8px;
+    border: 1px solid #cce7ff;
     margin-bottom: 20px;
     font-weight: 500;
-    animation: fadeIn 0.5s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
 }
 
 .total-section {
     text-align: right;
     margin-top: 20px;
     padding: 20px;
-    background: linear-gradient(45deg, #f8f9fa, #e9ecef);
-    border-radius: 12px;
-    border: 2px solid #667eea;
+    background: #f0f7ff;
+    border-radius: 8px;
+    border: 1px solid #4a90e2;
 }
 
 .total-section strong {
-    font-size: 1.5rem;
-    color: #2c3e50;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    font-size: 1.4rem;
+    color: #2a5298;
 }
 
 #bookInputs {
-    background: rgba(248, 249, 250, 0.8);
+    background: #f8fbff;
     padding: 20px;
-    border-radius: 12px;
-    border: 2px dashed #dee2e6;
+    border-radius: 8px;
+    border: 2px dashed #cce7ff;
     margin-bottom: 15px;
+}
+
+.print-btn {
+    display: inline-block;
+    background: #4a90e2;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 6px;
+    margin-left: 10px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.print-btn:hover {
+    background: #2a5298;
+}
+
+.verify-btn {
+    background: #4a90e2;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    margin-left: 10px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.verify-btn:hover {
+    background: #2a5298;
 }
 
 /* Responsive Design */
@@ -262,7 +229,7 @@ tbody tr:last-child td {
     }
 
     h2 {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
 
     table {
@@ -277,6 +244,7 @@ tbody tr:last-child td {
 @media (max-width: 480px) {
     .container {
         padding: 15px;
+        margin: 5px;
     }
 
     h2 {
@@ -294,26 +262,9 @@ tbody tr:last-child td {
     th, td {
         padding: 8px 5px;
     }
-}
 
-.print-btn {
-    display: inline-block;
-    background-color: #4CAF50;
-    color: white;
-    padding: 8px 14px;
-    text-decoration: none;
-    border-radius: 5px;
-    margin-left: 10px;
-}
-
-.print-btn:hover {
-    background-color: #388e3c;
-}
-
-.verify-btn {
-    background-color: #337ab7;
-    color: white;
-    padding: 6px 10px;
-    border: none;
-    margin-left: 10px;
+    .btn {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
 }

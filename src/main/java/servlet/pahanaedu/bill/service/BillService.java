@@ -71,6 +71,19 @@ public int createBill(BillDTO billDTO) {
         return dtos;
     }
 
+    // ===== New reporting methods =====
+    public List<Object[]> getDailySales() throws SQLException {
+        return billDAO.getDailySales();
+    }
+
+    public List<Object[]> getTopSellingBooks() throws SQLException {
+        return billDAO.getTopSellingBooks();
+    }
+
+    public List<Object[]> getTopCustomers() throws SQLException {
+        return billDAO.getTopCustomers();
+    }
+
 
 
 }
