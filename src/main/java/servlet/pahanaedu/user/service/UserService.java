@@ -80,7 +80,8 @@ public class UserService {
         return userDAO.update(user);
     }
 
-    public void deleteUserById(String id) throws SQLException {
-        userDAO.delete(id);
+    public boolean deleteUserById(String id) throws SQLException {
+        return userDAO.delete(id);
     }
+
 }
