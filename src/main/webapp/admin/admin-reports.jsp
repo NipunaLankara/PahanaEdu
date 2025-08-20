@@ -70,7 +70,7 @@
     </div>
 
     <div class="report-section">
-      <h2>📚 Top Selling Books</h2>
+      <h2>Top Selling Books</h2>
       <div class="table-container">
         <table class="report-table">
           <thead>
@@ -78,7 +78,6 @@
             <th>Rank</th>
             <th>Book Title</th>
             <th>Units Sold</th>
-            <th>Revenue</th>
           </tr>
           </thead>
           <tbody>
@@ -92,7 +91,6 @@
             <td><span class="rank-badge">#<%= i + 1 %></span></td>
             <td class="book-title"><%= row[0] %></td>
             <td class="units-sold"><%= row[1] %></td>
-            <td class="currency">$<%= Float.parseFloat(row[1].toString()) * 15.99 %></td>
           </tr>
           <%
             }
@@ -108,7 +106,7 @@
     </div>
 
     <div class="report-section">
-      <h2>👥 Top Customers</h2>
+      <h2>Top Customers</h2>
       <div class="table-container">
         <table class="report-table">
           <thead>

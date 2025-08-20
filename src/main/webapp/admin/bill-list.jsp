@@ -14,10 +14,16 @@
 <%@ page import="servlet.pahanaedu.bill.dto.BuyBookDTO" %>
 <%@ page import="servlet.pahanaedu.user.dto.UserDTO" %>
 
-<% List<BillDTO> bills = (List<BillDTO>) request.getAttribute("bills"); %>
+<%
+    List<BillDTO> bills = (List<BillDTO>) request.getAttribute("bills");
+%>
 
 <div class="bills-container">
     <h2 class="page-title">All Bills</h2>
+
+    <% if (bills == null || bills.isEmpty()) { %>
+    <p class="no-bills">No bills found</p>
+    <% } else { %>
 
     <% for (BillDTO bill : bills) {
         UserDTO customer = bill.getCustomer(); %>
@@ -56,14 +62,10 @@
                 <tbody>
                 <% for (BuyBookDTO item : bill.getItems()) { %>
                 <tr class="item-row">
-                    <td class="book-title"><%= item.getBook().getTitle() %>
-                    </td>
-                    <td class="quantity"><%= item.getQuantity() %>
-                    </td>
-                    <td class="unit-price">LKR <%= item.getPrice() %>
-                    </td>
-                    <td class="subtotal">LKR <%= item.getPrice() * item.getQuantity() %>
-                    </td>
+                    <td class="book-title"><%= item.getBook().getTitle() %></td>
+                    <td class="quantity"><%= item.getQuantity() %></td>
+                    <td class="unit-price">LKR <%= item.getPrice() %></td>
+                    <td class="subtotal">LKR <%= item.getPrice() * item.getQuantity() %></td>
                 </tr>
                 <% } %>
                 </tbody>
@@ -71,7 +73,9 @@
         </div>
     </div>
     <% } %>
+    <% } %>
 </div>
+
 
 <script src="js/billLIst.js"></script>
 </body>
