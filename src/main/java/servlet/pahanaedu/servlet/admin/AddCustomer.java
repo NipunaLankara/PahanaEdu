@@ -78,6 +78,6 @@ public class AddCustomer extends HttpServlet {
         if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!]).{5,}$")) {
             return "Password must be at least 5 characters and include upper, lower, number, and special character.";
         }
-        return null; // all good
+        return null;
     }
 }
