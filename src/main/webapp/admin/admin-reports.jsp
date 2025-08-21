@@ -12,7 +12,6 @@
 <div class="container">
   <div class="header">
     <h1>Admin Reports Dashboard</h1>
-    <p>Comprehensive business analytics and insights</p>
   </div>
 
   <div class="controls">
@@ -20,12 +19,7 @@
       <button class="btn btn-primary" onclick="printReports()">
         <i class="icon"></i> Print Reports
       </button>
-      <button class="btn btn-secondary" onclick="exportReports()">
-        <i class="icon"></i> Export PDF
-      </button>
-      <button class="btn btn-secondary" onclick="refreshData()">
-        <i class="icon"></i> Refresh Data
-      </button>
+
     </div>
     <div class="date-info">
       <span id="currentDate"></span>
@@ -41,7 +35,6 @@
           <tr>
             <th>Date</th>
             <th>Total Sales</th>
-            <th>Growth</th>
           </tr>
           </thead>
           <tbody>
@@ -53,8 +46,7 @@
           %>
           <tr class="fade-in" style="animation-delay: <%= i * 0.1 %>s">
             <td><%= row[0] %></td>
-            <td class="currency">$<%= row[1] %></td>
-            <td><span class="growth-indicator positive">+5.2%</span></td>
+            <td class="currency">Rs.<%= row[1] %></td>
           </tr>
           <%
             }
@@ -70,7 +62,7 @@
     </div>
 
     <div class="report-section">
-      <h2>📚 Top Selling Books</h2>
+      <h2>Top Selling Books</h2>
       <div class="table-container">
         <table class="report-table">
           <thead>
@@ -78,7 +70,6 @@
             <th>Rank</th>
             <th>Book Title</th>
             <th>Units Sold</th>
-            <th>Revenue</th>
           </tr>
           </thead>
           <tbody>
@@ -92,7 +83,6 @@
             <td><span class="rank-badge">#<%= i + 1 %></span></td>
             <td class="book-title"><%= row[0] %></td>
             <td class="units-sold"><%= row[1] %></td>
-            <td class="currency">$<%= Float.parseFloat(row[1].toString()) * 15.99 %></td>
           </tr>
           <%
             }
@@ -108,7 +98,7 @@
     </div>
 
     <div class="report-section">
-      <h2>👥 Top Customers</h2>
+      <h2>Top Customers</h2>
       <div class="table-container">
         <table class="report-table">
           <thead>
@@ -129,7 +119,7 @@
           <tr class="fade-in" style="animation-delay: <%= i * 0.1 %>s">
             <td><span class="rank-badge">#<%= i + 1 %></span></td>
             <td class="customer-email"><%= row[0] %></td>
-            <td class="currency">$<%= row[1] %></td>
+            <td class="currency">Rs.<%= row[1] %></td>
             <td><span class="order-count"><%= (int)(Math.random() * 20) + 5 %></span></td>
           </tr>
           <%
