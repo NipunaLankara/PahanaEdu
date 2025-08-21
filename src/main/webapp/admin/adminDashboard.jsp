@@ -106,6 +106,7 @@
                 <a href="manageBook" class="action-btn">Manage Book</a>
                 <a href="bill" class="action-btn">Create Bill</a>
                 <a href="bills" class="action-btn">View All Bills</a>
+                <a href="reports" class="action-btn">View Reports</a>
 
             </div>
         </div>
