@@ -249,3 +249,10 @@ body {
         color: #333 !important;
     }
 }
+
+.no-bills {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #888;
+    margin-top: 20px;
+}
